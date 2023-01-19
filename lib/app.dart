@@ -9,7 +9,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Triple Seven Slots Game',
       routes: routes,
-      initialRoute: mainMenuScreen,
+      initialRoute: mainMenuScreenRoute,
     );
   }
 }
