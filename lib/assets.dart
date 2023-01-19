@@ -10,3 +10,6 @@ const watermelonIc = 'assets/images/watermelon.svg';
 
 const coinsSection = 'assets/images/coinsSection.svg';
 const coin = 'assets/images/coin.svg';
+
+// menu
+const boardIc = 'assets/images/board.svg';
