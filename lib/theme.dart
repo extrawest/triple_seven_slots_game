@@ -41,8 +41,11 @@ const lightOrangeGradient = LinearGradient(
 );
 
 class TextStyles {
+  static const clarendonReg22 =
+      TextStyle(color: primaryWhite, fontSize: 22, fontFamily: 'Clarendon');
   static const bodyReg20 = TextStyle(color: primaryWhite, fontSize: 20);
   static const bodyReg22 = TextStyle(color: primaryWhite, fontSize: 22);
   static const bodyReg24 = TextStyle(color: primaryWhite, fontSize: 24);
   static const h1Bold38 = TextStyle(color: primaryWhite, fontSize: 38, fontWeight: FontWeight.w700);
+  static const h2Bold32 = TextStyle(color: primaryWhite, fontSize: 32, fontFamily: 'Clarendon');
 }
