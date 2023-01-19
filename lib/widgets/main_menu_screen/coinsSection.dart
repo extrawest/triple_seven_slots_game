@@ -12,11 +12,11 @@ class CoinsSection extends StatelessWidget {
       children: [
         SvgPicture.asset(coinsSection),
         const Positioned(
-          right: 17,
-          top: 21,
+          right: 12,
+          top: 20,
           child: Text(
             '100k',
-            style: TextStyles.bodyReg22,
+            style: TextStyles.clarendonReg22,
           ),
         ),
       ],
