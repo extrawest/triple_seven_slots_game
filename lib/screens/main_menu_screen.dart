@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:triple_seven_slots_game/assets.dart';
+import 'package:triple_seven_slots_game/theme.dart';
 import 'package:triple_seven_slots_game/widgets/common/background_gradient_scaffold.dart';
 import 'package:triple_seven_slots_game/widgets/main_menu_screen/coinsSection.dart';
 import 'package:triple_seven_slots_game/widgets/main_menu_screen/game_button.dart';
@@ -9,17 +10,36 @@ class MainMenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return GradientBackgroundScaffold(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CoinsSection(),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+            child: Stack(
+              children: [
+                SizedBox(width: size.width),
+                const CoinsSection(),
+                const Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      'Triple Seven Slots',
+                      style: TextStyles.h2Bold32,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
           Expanded(
-            child: Column(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GameButton(onPressed: () {}, asset: seventhIc),
-                const SizedBox(height: 50),
+                const SizedBox(width: 50),
                 GameButton(onPressed: () {}, asset: appleIc),
               ],
             ),
