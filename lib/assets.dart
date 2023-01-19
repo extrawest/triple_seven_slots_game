@@ -7,3 +7,6 @@ const coinIc = 'assets/images/coin.svg';
 const crownIc = 'assets/images/crown.svg';
 const lemonIc = 'assets/images/lemon.svg';
 const watermelonIc = 'assets/images/watermelon.svg';
+
+const coinsSection = 'assets/images/coinsSection.svg';
+const coin = 'assets/images/coin.svg';
