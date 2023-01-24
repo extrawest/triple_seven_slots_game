@@ -13,3 +13,7 @@ const coin = 'assets/images/coin.svg';
 
 // menu
 const boardIc = 'assets/images/board.svg';
+const arrowLeftIc = 'assets/images/arrow_left.svg';
+const arrowRightIc = 'assets/images/arrow_right.svg';
+const playButton = 'assets/images/play_button.svg';
+const cellIc = 'assets/images/cell.svg';
