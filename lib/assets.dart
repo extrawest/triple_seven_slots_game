@@ -19,5 +19,5 @@ const playButton = 'assets/images/play_button.svg';
 const cellIc = 'assets/images/cell.svg';
 
 // lotties
-const confettiLottie = 'assets/images/confetti_lottie.json';
-const goldenConfettiLottie = 'assets/images/golden_confetti_lottie.json';
+const confettiLottie = 'assets/lottie/confetti_lottie.json';
+const goldenConfettiLottie = 'assets/lottie/golden_confetti_lottie.json';

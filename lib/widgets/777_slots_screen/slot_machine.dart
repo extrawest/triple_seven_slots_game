@@ -5,6 +5,7 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 import 'package:roll_slot_machine/roll_slot_controller.dart';
 import 'package:triple_seven_slots_game/assets.dart';
 import 'package:triple_seven_slots_game/bloc/slot_machine_bloc/slot_machine_bloc.dart';
+import 'package:triple_seven_slots_game/models/lottie_type.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/common_roll_slot.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/control_panel.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/prize_dialog.dart';
@@ -115,6 +116,7 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
   void _prizeListener(BuildContext context, SlotMachineState state) async {
     if (state.isSpinning == false && state.prize != null) {
       _showPrizeDialog(context, state);
+      _playLottie(state.prize!.lottieType);
     }
   }
 
@@ -126,22 +128,30 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
           Center(
             child: PrizeDialog(prize: state.prize!),
           ),
+          _buildLottie(state.prize!.lottieType),
         ],
       ),
     );
   }
 
-  List<Widget> _buildLotties(SlotMachineBloc state) {
-    return [
-      CommonLottie(
-        lottieController: _confettiLottieController,
-        lottie: confettiLottie,
-      ),
-      CommonLottie(
-        lottieController: _goldenLottieController,
-        lottie: goldenConfettiLottie,
-      ),
-    ];
+  void _playLottie(LottieType lottieType) {
+    if (lottieType.isConfetti) {
+      _confettiLottieController.forward().then((_) => _confettiLottieController.reset());
+    } else if (lottieType.isGoldenConfetti) {
+      _goldenLottieController.forward().then((_) => _goldenLottieController.reset());
+    }
+  }
+
+  Widget _buildLottie(LottieType lottieType) {
+    return lottieType.isConfetti
+        ? CommonLottie(
+            lottieController: _confettiLottieController,
+            lottie: confettiLottie,
+          )
+        : CommonLottie(
+            lottieController: _goldenLottieController,
+            lottie: goldenConfettiLottie,
+          );
   }
 
   List<Widget> _buildRollSlots() {
