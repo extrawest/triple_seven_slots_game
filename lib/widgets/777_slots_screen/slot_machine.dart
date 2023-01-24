@@ -123,10 +123,9 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
     _fourthController.animateRandomly(index: prizeIndexes[3]);
   }
 
-  void _prizeListener(BuildContext context, SlotMachineState state) async {
+  void _prizeListener(BuildContext context, SlotMachineState state) {
     if (state.isSpinning == false && state.prize != null) {
       _showPrizeDialog(context, state);
-      _playLottie(state.prize!.lottieType);
     }
   }
 
@@ -141,7 +140,10 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
           _buildLottie(state.prize!.lottieType),
         ],
       ),
-    );
+    ).then((_) {
+      context.read<SlotMachineBloc>().add(UpdateUserBalance(state.prize!.coins));
+    });
+    _playLottie(state.prize!.lottieType);
   }
 
   void _playLottie(LottieType lottieType) {
