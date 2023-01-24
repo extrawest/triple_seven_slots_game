@@ -8,9 +8,15 @@ abstract class UserBalanceLocalStorage {
 }
 
 class UserBalanceLocalStorageImpl implements UserBalanceLocalStorage {
-  final SharedPreferences sharedPreferences;
+  late final SharedPreferences sharedPreferences;
 
-  UserBalanceLocalStorageImpl({required this.sharedPreferences});
+  UserBalanceLocalStorageImpl() {
+    init();
+  }
+
+  void init() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+  }
 
   @override
   int getUserBalance() {
