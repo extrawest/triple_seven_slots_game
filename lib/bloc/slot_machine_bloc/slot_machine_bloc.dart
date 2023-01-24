@@ -12,6 +12,8 @@ part 'slot_machine_state.dart';
 class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
   SlotMachineBloc() : super(const SlotMachineState()) {
     on<SpinMachineEvent>(_onSpinMachineEvent);
+    on<IncreaseBet>(_onIncreaseBet);
+    on<DecreaseBet>(_onDecreaseBet);
   }
 
   void _onSpinMachineEvent(SpinMachineEvent event, Emitter<SlotMachineState> emit) {
@@ -32,5 +34,19 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
       }
     }
     return null;
+  }
+
+  void _onIncreaseBet(IncreaseBet event, Emitter<SlotMachineState> emit) {
+    if (state.currentBet < 20000) {
+      emit(state.copyWith(
+          currentBet: state.currentBet + differenceBet, previousBet: state.currentBet));
+    }
+  }
+
+  void _onDecreaseBet(DecreaseBet event, Emitter<SlotMachineState> emit) {
+    if (state.currentBet > 1000) {
+      emit(state.copyWith(
+          currentBet: state.currentBet - differenceBet, previousBet: state.currentBet));
+    }
   }
 }
