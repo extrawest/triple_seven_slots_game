@@ -44,7 +44,7 @@ dependencies:
   lottie: ^2.2.0
   flutter_svg_provider: ^1.0.3
   equatable: ^2.0.5
-  shared_preferences: ^0.5.5
+  shared_preferences: ^2.0.17
   countup: ^0.1.4
 
 
