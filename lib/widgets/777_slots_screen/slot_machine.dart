@@ -8,6 +8,8 @@ import 'package:triple_seven_slots_game/assets.dart';
 import 'package:triple_seven_slots_game/bloc/slot_machine_bloc/slot_machine_bloc.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/common_roll_slot.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/control_panel.dart';
+import 'package:triple_seven_slots_game/widgets/777_slots_screen/prize_dialog.dart';
+import 'package:triple_seven_slots_game/widgets/common/common_lottie.dart';
 
 class SlotMachine extends StatefulWidget {
   const SlotMachine({Key? key}) : super(key: key);
@@ -16,17 +18,59 @@ class SlotMachine extends StatefulWidget {
   State<SlotMachine> createState() => _SlotMachineState();
 }
 
-class _SlotMachineState extends State<SlotMachine> {
+class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin {
   final RollSlotController _firstController = RollSlotController(secondsBeforeStop: 2);
   final RollSlotController _secondController = RollSlotController(secondsBeforeStop: 2);
   final RollSlotController _thirdController = RollSlotController(secondsBeforeStop: 2);
   final RollSlotController _fourthController = RollSlotController(secondsBeforeStop: 2);
 
+  late final AnimationController _confettiLottieController;
+  late final AnimationController _goldenLottieController;
+
+  @override
+  void initState() {
+    _confettiLottieController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    _goldenLottieController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    listenSlotController();
+    super.initState();
+  }
+
+  void listenSlotController() {
+    // fourth controller will always stop after others
+    _fourthController.addListener(() {
+      if (_fourthController.state.isStopped) {
+        Future.delayed(const Duration(seconds: 2)).then((_) {
+          context.read<SlotMachineBloc>().add(const StopMachine());
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _firstController.dispose();
+    _secondController.dispose();
+    _thirdController.dispose();
+    _fourthController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return BlocListener<SlotMachineBloc, SlotMachineState>(
-      listener: _slotMachineListener,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<SlotMachineBloc, SlotMachineState>(
+          listenWhen: (prev, curr) => prev.isSpinning != curr.isSpinning,
+          listener: _slotMachineListener,
+        ),
+        BlocListener<SlotMachineBloc, SlotMachineState>(
+          listenWhen: (prev, curr) => prev.isSpinning != curr.isSpinning,
+          listener: _prizeListener,
+        ),
+      ],
       child: Column(
         children: [
           Flexible(
@@ -61,7 +105,44 @@ class _SlotMachineState extends State<SlotMachine> {
       _secondController.animateRandomly(index: state.prizeIndexes[1]);
       _thirdController.animateRandomly(index: state.prizeIndexes[2]);
       _fourthController.animateRandomly(index: state.prizeIndexes[3]);
+    } else {
+      _firstController.stop();
+      _secondController.stop();
+      _thirdController.stop();
+      _fourthController.stop();
     }
+  }
+
+  void _prizeListener(BuildContext context, SlotMachineState state) async {
+    if (state.isSpinning == false && state.prize != null) {
+      _showPrizeDialog(context, state);
+    }
+  }
+
+  void _showPrizeDialog(BuildContext context, SlotMachineState state) {
+    showDialog(
+      context: context,
+      builder: (_) => Stack(
+        children: [
+          Center(
+            child: PrizeDialog(prize: state.prize!),
+          ),
+        ],
+      ),
+    );
+  }
+
+  List<Widget> _buildLotties(SlotMachineBloc state) {
+    return [
+      CommonLottie(
+        lottieController: _confettiLottieController,
+        lottie: confettiLottie,
+      ),
+      CommonLottie(
+        lottieController: _goldenLottieController,
+        lottie: goldenConfettiLottie,
+      ),
+    ];
   }
 
   List<Widget> _buildRollSlots() {
