@@ -1,9 +1,13 @@
 import 'dart:math';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:triple_seven_slots_game/bloc/slot_machine_bloc/slot_machine_event.dart';
-import 'package:triple_seven_slots_game/bloc/slot_machine_bloc/slot_machine_state.dart';
+import 'package:triple_seven_slots_game/consts.dart';
+import 'package:triple_seven_slots_game/models/prize.dart';
 import 'package:triple_seven_slots_game/models/slot_machine_status.dart';
+
+part 'slot_machine_event.dart';
+part 'slot_machine_state.dart';
 
 class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
   SlotMachineBloc() : super(const SlotMachineState()) {

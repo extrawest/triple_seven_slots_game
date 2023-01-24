@@ -1,3 +1,5 @@
+part of 'slot_machine_bloc.dart';
+
 abstract class SlotMachineEvent {
   const SlotMachineEvent();
 }

@@ -1,7 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:triple_seven_slots_game/consts.dart';
-import 'package:triple_seven_slots_game/models/prize.dart';
-import 'package:triple_seven_slots_game/models/slot_machine_status.dart';
+part of 'slot_machine_bloc.dart';
 
 class SlotMachineState extends Equatable {
   final bool isSpinning;
