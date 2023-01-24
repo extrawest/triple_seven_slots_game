@@ -1,9 +1,10 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 const balanceKey = 'balance_key';
+const firstTimeKey = 'first_time';
 
 abstract class UserBalanceLocalStorage {
-  int getUserBalance();
+  int? getUserBalance();
   void updateUserBalance(int balance);
 }
 
@@ -19,7 +20,7 @@ class UserBalanceLocalStorageImpl implements UserBalanceLocalStorage {
   }
 
   @override
-  int getUserBalance() {
+  int? getUserBalance() {
     try {
       return sharedPreferences.getInt(balanceKey);
     } catch (e) {
