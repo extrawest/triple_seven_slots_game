@@ -8,5 +8,5 @@ void main() {
     DeviceOrientation.landscapeRight,
     DeviceOrientation.landscapeLeft,
   ]);
-  runApp(const App());
+  runApp(App());
 }

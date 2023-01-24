@@ -6,12 +6,17 @@ import 'package:triple_seven_slots_game/consts.dart';
 import 'package:triple_seven_slots_game/models/prize.dart';
 import 'package:triple_seven_slots_game/models/slot_machine_status.dart';
 import 'package:triple_seven_slots_game/repositories/slot_machine_repository.dart';
+import 'package:triple_seven_slots_game/repositories/user_balance_repository.dart';
 
 part 'slot_machine_event.dart';
 part 'slot_machine_state.dart';
 
 class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
-  SlotMachineBloc() : super(const SlotMachineState()) {
+  final UserBalanceRepository _userBalanceRepository;
+
+  SlotMachineBloc({required UserBalanceRepository userBalanceRepository})
+      : _userBalanceRepository = userBalanceRepository,
+        super(const SlotMachineState()) {
     on<SpinMachineEvent>(_onSpinMachineEvent);
     on<IncreaseBet>(_onIncreaseBet);
     on<DecreaseBet>(_onDecreaseBet);
