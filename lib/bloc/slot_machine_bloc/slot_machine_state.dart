@@ -12,6 +12,8 @@ class SlotMachineState extends Equatable {
 
   final int previousBet;
 
+  final int userBalance;
+
   const SlotMachineState({
     this.prizeIndexes = const [],
     this.isSpinning = false,
@@ -20,18 +22,19 @@ class SlotMachineState extends Equatable {
     this.currentBet = defaultBet,
     this.slotMachineStatus = SlotMachineStatus.initial,
     this.previousBet = defaultBet,
+    this.userBalance = 0,
   });
 
-  SlotMachineState copyWith({
-    bool? isSpinning,
-    List<int>? prizeIndexes,
-    int? winPrizeIndex,
-    Prize? prize,
-    bool keepPrize = true,
-    int? currentBet,
-    int? previousBet,
-    SlotMachineStatus? slotMachineStatus,
-  }) =>
+  SlotMachineState copyWith(
+          {bool? isSpinning,
+          List<int>? prizeIndexes,
+          int? winPrizeIndex,
+          Prize? prize,
+          bool keepPrize = true,
+          int? currentBet,
+          int? previousBet,
+          SlotMachineStatus? slotMachineStatus,
+          int? userBalance}) =>
       SlotMachineState(
         isSpinning: isSpinning ?? this.isSpinning,
         prizeIndexes: prizeIndexes ?? this.prizeIndexes,
@@ -40,6 +43,7 @@ class SlotMachineState extends Equatable {
         currentBet: currentBet ?? this.currentBet,
         previousBet: previousBet ?? this.currentBet,
         slotMachineStatus: slotMachineStatus ?? this.slotMachineStatus,
+        userBalance: userBalance ?? this.userBalance,
       );
 
   @override
@@ -51,5 +55,6 @@ class SlotMachineState extends Equatable {
         currentBet,
         slotMachineStatus,
         previousBet,
+        userBalance,
       ];
 }

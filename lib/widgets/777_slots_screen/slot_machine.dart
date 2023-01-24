@@ -9,6 +9,7 @@ import 'package:triple_seven_slots_game/models/lottie_type.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/common_roll_slot.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/control_panel.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/prize_dialog.dart';
+import 'package:triple_seven_slots_game/widgets/777_slots_screen/user_balance.dart';
 import 'package:triple_seven_slots_game/widgets/common/common_lottie.dart';
 
 class SlotMachine extends StatefulWidget {
@@ -29,6 +30,7 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
 
   @override
   void initState() {
+    context.read<SlotMachineBloc>().add(const FetchUserBalance());
     _confettiLottieController =
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
     _goldenLottieController =
@@ -73,6 +75,7 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
       ],
       child: Column(
         children: [
+          const UserBalance(),
           Flexible(
             child: AbsorbPointer(
               child: Container(

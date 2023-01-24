@@ -21,6 +21,8 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
     on<IncreaseBet>(_onIncreaseBet);
     on<DecreaseBet>(_onDecreaseBet);
     on<StopMachine>(_onStopMachine);
+    on<FetchUserBalance>(_onFetchUserBalance);
+    on<UpdateUserBalance>(_onUpdateUserBalance);
   }
 
   void _onSpinMachineEvent(SpinMachineEvent event, Emitter<SlotMachineState> emit) {
@@ -44,6 +46,21 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
 
   void _onStopMachine(StopMachine event, Emitter<SlotMachineState> emit) {
     emit(state.copyWith(isSpinning: false));
+  }
+
+  void _onFetchUserBalance(FetchUserBalance event, Emitter<SlotMachineState> emit) {
+    try {
+      final balance = _userBalanceRepository.getBalance();
+      emit(state.copyWith(userBalance: balance ?? initialBalance));
+    } catch (e) {}
+  }
+
+  void _onUpdateUserBalance(UpdateUserBalance event, Emitter<SlotMachineState> emit) {
+    try {
+      final newBalance = state.userBalance + event.balanceChange;
+      _userBalanceRepository.setBalance(newBalance);
+      emit(state.copyWith(userBalance: newBalance));
+    } catch (e) {}
   }
 
   List<int> generatePrizes() {
