@@ -17,3 +17,7 @@ const arrowLeftIc = 'assets/images/arrow_left.svg';
 const arrowRightIc = 'assets/images/arrow_right.svg';
 const playButton = 'assets/images/play_button.svg';
 const cellIc = 'assets/images/cell.svg';
+
+// lotties
+const confettiLottie = 'assets/images/confetti_lottie.json';
+const goldenConfettiLottie = 'assets/images/golden_confetti_lottie.json';
