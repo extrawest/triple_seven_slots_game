@@ -15,6 +15,7 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
     on<SpinMachineEvent>(_onSpinMachineEvent);
     on<IncreaseBet>(_onIncreaseBet);
     on<DecreaseBet>(_onDecreaseBet);
+    on<StopMachine>(_onStopMachine);
   }
 
   void _onSpinMachineEvent(SpinMachineEvent event, Emitter<SlotMachineState> emit) {
@@ -22,7 +23,22 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
     final prizesIndexes = generatePrizes();
     final prizeIndex = generatePrizeIndex(prizesIndexes);
     // withdraw coins from the balance
-    emit(state.copyWith(prizeIndexes: prizesIndexes, winPrizeIndex: prizeIndex, isSpinning: true));
+
+    if (prizeIndex != null) {
+      emit(state.copyWith(
+        prizeIndexes: prizesIndexes,
+        winPrizeIndex: prizeIndex,
+        isSpinning: true,
+        prize: SlotMachineRepository.prizes[prizeIndex],
+      ));
+    } else {
+      emit(state.copyWith(
+          prizeIndexes: prizesIndexes, isSpinning: true, prize: null, keepPrize: false));
+    }
+  }
+
+  void _onStopMachine(StopMachine event, Emitter<SlotMachineState> emit) {
+    emit(state.copyWith(isSpinning: false));
   }
 
   List<int> generatePrizes() {

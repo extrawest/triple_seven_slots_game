@@ -9,6 +9,10 @@ class SpinMachineEvent extends SlotMachineEvent {
   const SpinMachineEvent({required this.bet});
 }
 
+class StopMachine extends SlotMachineEvent {
+  const StopMachine();
+}
+
 class IncreaseBet extends SlotMachineEvent {
   const IncreaseBet();
 }
