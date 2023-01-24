@@ -7,12 +7,8 @@ class SevenSlotsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GradientBackgroundScaffold(
-      child: Row(
-        children: const [
-          SlotMachine(),
-        ],
-      ),
+    return const GradientBackgroundScaffold(
+      child: SlotMachine(),
     );
   }
 }
