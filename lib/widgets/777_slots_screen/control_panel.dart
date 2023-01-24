@@ -30,9 +30,12 @@ class ControlPanel extends StatelessWidget {
           onPressed: () => context.read<SlotMachineBloc>().add(const IncreaseBet()),
         ),
         const SizedBox(width: 50),
-        SvgPicture.asset(
-          playButton,
-          width: 120,
+        ZoomTapAnimation(
+          onTap: () => _startSlotMachine(context),
+          child: SvgPicture.asset(
+            playButton,
+            width: 120,
+          ),
         ),
       ],
     );
@@ -50,5 +53,10 @@ class ControlPanel extends StatelessWidget {
         child: SvgPicture.asset(asset, width: 60),
       ),
     );
+  }
+
+  void _startSlotMachine(BuildContext context) {
+    final bet = context.read<SlotMachineBloc>().state.currentBet;
+    context.read<SlotMachineBloc>().add(SpinMachineEvent(bet: bet));
   }
 }

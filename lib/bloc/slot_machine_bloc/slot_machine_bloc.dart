@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:triple_seven_slots_game/consts.dart';
 import 'package:triple_seven_slots_game/models/prize.dart';
 import 'package:triple_seven_slots_game/models/slot_machine_status.dart';
+import 'package:triple_seven_slots_game/repositories/slot_machine_repository.dart';
 
 part 'slot_machine_event.dart';
 part 'slot_machine_state.dart';
@@ -18,14 +19,18 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
 
   void _onSpinMachineEvent(SpinMachineEvent event, Emitter<SlotMachineState> emit) {
     emit(state.copyWith(slotMachineStatus: SlotMachineStatus.loading));
-    final prizeIndex = generatePrizeIndex();
+    final prizesIndexes = generatePrizes();
+    final prizeIndex = generatePrizeIndex(prizesIndexes);
     // withdraw coins from the balance
-    // start spinning
+    emit(state.copyWith(prizeIndexes: prizesIndexes, winPrizeIndex: prizeIndex, isSpinning: true));
   }
 
-  int? generatePrizeIndex() {
-    final prizeIndexes = List<int>.generate(3, (_) => Random().nextInt(3));
+  List<int> generatePrizes() {
+    return List<int>.generate(
+        numberOfSlots, (_) => Random().nextInt(SlotMachineRepository.prizes.length));
+  }
 
+  int? generatePrizeIndex(List<int> prizeIndexes) {
     for (int i = 0; i < prizeIndexes.length; i++) {
       for (int k = i + 1; k < prizeIndexes.length; k++) {
         if (prizeIndexes[i] == prizeIndexes[k]) {
