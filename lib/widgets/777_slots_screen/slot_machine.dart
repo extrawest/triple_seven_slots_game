@@ -101,16 +101,23 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
 
   void _slotMachineListener(BuildContext context, SlotMachineState state) {
     if (state.isSpinning) {
-      _firstController.animateRandomly(index: state.prizeIndexes[0]);
-      _secondController.animateRandomly(index: state.prizeIndexes[1]);
-      _thirdController.animateRandomly(index: state.prizeIndexes[2]);
-      _fourthController.animateRandomly(index: state.prizeIndexes[3]);
+      _triggerControllers(state.prizeIndexes);
     } else {
       _firstController.stop();
       _secondController.stop();
       _thirdController.stop();
       _fourthController.stop();
     }
+  }
+
+  void _triggerControllers(List<int> prizeIndexes) async {
+    _firstController.animateRandomly(index: prizeIndexes[0]);
+    await Future.delayed(const Duration(milliseconds: 100));
+    _secondController.animateRandomly(index: prizeIndexes[1]);
+    await Future.delayed(const Duration(milliseconds: 100));
+    _thirdController.animateRandomly(index: prizeIndexes[2]);
+    await Future.delayed(const Duration(milliseconds: 100));
+    _fourthController.animateRandomly(index: prizeIndexes[3]);
   }
 
   void _prizeListener(BuildContext context, SlotMachineState state) async {
