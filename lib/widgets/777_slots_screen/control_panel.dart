@@ -21,7 +21,9 @@ class ControlPanel extends StatelessWidget {
           _buildChangeBetButton(
             angle: pi / -2,
             asset: arrowLeftIc,
-            onPressed: () => context.read<SlotMachineBloc>().add(const DecreaseBet()),
+            onPressed: state.isSpinning
+                ? null
+                : () => context.read<SlotMachineBloc>().add(const DecreaseBet()),
           ),
           const SizedBox(width: 5),
           BetCell(slotMachineState: state),
@@ -29,7 +31,9 @@ class ControlPanel extends StatelessWidget {
           _buildChangeBetButton(
             angle: pi / 2,
             asset: arrowLeftIc,
-            onPressed: () => context.read<SlotMachineBloc>().add(const IncreaseBet()),
+            onPressed: state.isSpinning
+                ? null
+                : () => context.read<SlotMachineBloc>().add(const IncreaseBet()),
           ),
           const SizedBox(width: 50),
           ZoomTapAnimation(
@@ -56,7 +60,7 @@ class ControlPanel extends StatelessWidget {
 
   Widget _buildChangeBetButton({
     required double angle,
-    required Function() onPressed,
+    required void Function()? onPressed,
     required String asset,
   }) {
     return Transform.rotate(
