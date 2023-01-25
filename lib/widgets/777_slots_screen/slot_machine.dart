@@ -141,7 +141,9 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
         ],
       ),
     ).then((_) {
-      context.read<SlotMachineBloc>().add(UpdateUserBalance(state.prize!.coins));
+      context
+          .read<SlotMachineBloc>()
+          .add(UpdateUserBalance(state.prize!.multiplier * state.currentBet));
     });
     _playLottie(state.prize!.lottieType);
   }

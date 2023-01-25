@@ -5,14 +5,14 @@ class Prize {
   final String asset;
   final String name;
   final LottieType lottieType;
-  final int coins;
+  final int multiplier;
 
   const Prize({
     required this.asset,
     required this.prizeType,
     required this.name,
     required this.lottieType,
-    required this.coins,
+    required this.multiplier,
   });
 }
 
