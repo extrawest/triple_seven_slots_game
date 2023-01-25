@@ -107,70 +107,6 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
     );
   }
 
-  void _slotMachineListener(BuildContext context, SlotMachineState state) {
-    if (state.isSpinning) {
-      _triggerControllers(state.prizeIndexes);
-    } else {
-      _firstController.stop();
-      _secondController.stop();
-      _thirdController.stop();
-      _fourthController.stop();
-    }
-  }
-
-  void _triggerControllers(List<int> prizeIndexes) async {
-    _firstController.animateRandomly(index: prizeIndexes[0]);
-    await Future.delayed(const Duration(milliseconds: 100));
-    _secondController.animateRandomly(index: prizeIndexes[1]);
-    await Future.delayed(const Duration(milliseconds: 100));
-    _thirdController.animateRandomly(index: prizeIndexes[2]);
-    await Future.delayed(const Duration(milliseconds: 100));
-    _fourthController.animateRandomly(index: prizeIndexes[3]);
-  }
-
-  void _prizeListener(BuildContext context, SlotMachineState state) {
-    if (state.isSpinning == false && state.prize != null) {
-      _showPrizeDialog(context, state);
-    }
-  }
-
-  void _showPrizeDialog(BuildContext context, SlotMachineState state) {
-    showDialog(
-      context: context,
-      builder: (_) => Stack(
-        children: [
-          Center(
-            child: PrizeDialog(prize: state.prize!),
-          ),
-          _buildLottie(state.prize!.lottieType),
-        ],
-      ),
-    ).then((_) {
-      context
-          .read<SlotMachineBloc>()
-          .add(UpdateUserBalance(state.prize!.multiplier * state.currentBet));
-    });
-    _playLottie(state.prize!.lottieType);
-  }
-
-  void _playLottie(LottieType lottieType) {
-    if (lottieType.isConfetti) {
-      _confettiLottieController.forward().then((_) => _confettiLottieController.reset());
-    } else if (lottieType.isGoldenConfetti) {
-      _goldenLottieController.forward().then((_) => _goldenLottieController.reset());
-    }
-  }
-
-  void disposeControllers() {
-    _firstController.dispose();
-    _secondController.dispose();
-    _thirdController.dispose();
-    _fourthController.dispose();
-    _goldenLottieController.dispose();
-    _confettiLottieController.dispose();
-    _coinsLottieController.dispose();
-  }
-
   Widget _buildLottie(LottieType lottieType) {
     return lottieType.isConfetti
         ? CommonLottie(
@@ -214,6 +150,71 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
         ),
       ),
     ];
+  }
+
+  void _slotMachineListener(BuildContext context, SlotMachineState state) {
+    if (state.isSpinning) {
+      _triggerControllers(state.prizeIndexes);
+    } else {
+      _firstController.stop();
+      _secondController.stop();
+      _thirdController.stop();
+      _fourthController.stop();
+    }
+  }
+
+  void _prizeListener(BuildContext context, SlotMachineState state) {
+    if (state.isSpinning == false && state.prize != null) {
+      _showPrizeDialog(context, state);
+    }
+  }
+
+  void _showPrizeDialog(BuildContext context, SlotMachineState state) {
+    showDialog(
+      context: context,
+      builder: (_) => Stack(
+        children: [
+          Center(
+            child: PrizeDialog(prize: state.prize!),
+          ),
+          _buildLottie(state.prize!.lottieType),
+        ],
+      ),
+    ).then((_) {
+      context
+          .read<SlotMachineBloc>()
+          .add(UpdateUserBalance(state.prize!.multiplier * state.currentBet));
+      _coinsLottieController.forward().then((_) => _coinsLottieController.reset());
+    });
+    _playLottie(state.prize!.lottieType);
+  }
+
+  void _triggerControllers(List<int> prizeIndexes) async {
+    _firstController.animateRandomly(index: prizeIndexes[0]);
+    await Future.delayed(const Duration(milliseconds: 100));
+    _secondController.animateRandomly(index: prizeIndexes[1]);
+    await Future.delayed(const Duration(milliseconds: 100));
+    _thirdController.animateRandomly(index: prizeIndexes[2]);
+    await Future.delayed(const Duration(milliseconds: 100));
+    _fourthController.animateRandomly(index: prizeIndexes[3]);
+  }
+
+  void _playLottie(LottieType lottieType) {
+    if (lottieType.isConfetti) {
+      _confettiLottieController.forward().then((_) => _confettiLottieController.reset());
+    } else if (lottieType.isGoldenConfetti) {
+      _goldenLottieController.forward().then((_) => _goldenLottieController.reset());
+    }
+  }
+
+  void disposeControllers() {
+    _firstController.dispose();
+    _secondController.dispose();
+    _thirdController.dispose();
+    _fourthController.dispose();
+    _goldenLottieController.dispose();
+    _confettiLottieController.dispose();
+    _coinsLottieController.dispose();
   }
 
   final List<Widget> prizes = <Widget>[
