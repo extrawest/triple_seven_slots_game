@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:triple_seven_slots_game/assets.dart';
-import 'package:triple_seven_slots_game/widgets/common/common_lottie.dart';
 
 class CoinsLottie extends StatelessWidget {
   final AnimationController animationController;
@@ -8,9 +8,16 @@ class CoinsLottie extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CommonLottie(
-      lottieController: animationController,
-      lottie: coinsLottie,
+    return Align(
+      alignment: Alignment.center,
+      child: IgnorePointer(
+        child: Lottie.asset(
+          coinsLottie,
+          controller: animationController,
+          height: MediaQuery.of(context).size.height,
+          fit: BoxFit.fill,
+        ),
+      ),
     );
   }
 }
