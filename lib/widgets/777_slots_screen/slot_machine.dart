@@ -80,14 +80,13 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
         children: [
           Column(
             children: [
-              const UserBalance(),
               Flexible(
                 child: AbsorbPointer(
                   child: Container(
                     width: size.width * 0.45,
                     height: size.height * 0.7,
                     padding: EdgeInsets.only(
-                      top: size.height * 0.2,
+                      top: size.height * 0.02,
                       bottom: size.height * 0.1,
                       left: 50,
                       right: 50,
@@ -98,9 +97,17 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
                         fit: BoxFit.cover,
                       ),
                     ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: _buildRollSlots(),
+                    child: Column(
+                      children: [
+                        const UserBalance(),
+                        const SizedBox(height: 30),
+                        Flexible(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: _buildRollSlots(),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
