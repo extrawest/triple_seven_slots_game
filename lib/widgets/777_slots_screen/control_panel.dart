@@ -37,18 +37,17 @@ class ControlPanel extends StatelessWidget {
           ),
           const SizedBox(width: 50),
           ZoomTapAnimation(
-            onTap: () => state.isSpinning ? _stopSlotMachine(context) : _startSlotMachine(context),
+            onTap: () => state.isSpinning ? null : _startSlotMachine(context),
             child: Stack(
               children: [
                 SvgPicture.asset(
                   playButton,
                   width: 120,
                 ),
-                Positioned(
+                const Positioned(
                   top: 15,
                   left: 35,
-                  child:
-                      Text(state.isSpinning ? 'Stop' : 'Start', style: TextStyles.clarendonReg22),
+                  child: Text('Spin', style: TextStyles.clarendonReg22),
                 ),
               ],
             ),
@@ -75,9 +74,5 @@ class ControlPanel extends StatelessWidget {
   void _startSlotMachine(BuildContext context) {
     final bet = context.read<SlotMachineBloc>().state.currentBet;
     context.read<SlotMachineBloc>().add(SpinMachineEvent(bet: bet));
-  }
-
-  void _stopSlotMachine(BuildContext context) {
-    context.read<SlotMachineBloc>().add(const StopMachine());
   }
 }
