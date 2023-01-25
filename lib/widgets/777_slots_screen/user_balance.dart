@@ -1,6 +1,8 @@
 import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:triple_seven_slots_game/assets.dart';
 import 'package:triple_seven_slots_game/bloc/slot_machine_bloc/slot_machine_bloc.dart';
 import 'package:triple_seven_slots_game/theme.dart';
 
@@ -12,11 +14,20 @@ class UserBalance extends StatelessWidget {
     return BlocBuilder<SlotMachineBloc, SlotMachineState>(
       buildWhen: (prev, curr) => prev.userBalance != curr.userBalance,
       builder: (context, state) {
-        return Countup(
-          begin: (state.userBalance + state.currentBet).toDouble(),
-          end: state.userBalance.toDouble(),
-          duration: const Duration(milliseconds: 500),
-          style: TextStyles.clarendonReg22,
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              coinIc,
+              width: 30,
+            ),
+            Countup(
+              begin: (state.userBalance + state.currentBet).toDouble(),
+              end: state.userBalance.toDouble(),
+              duration: const Duration(milliseconds: 500),
+              style: TextStyles.clarendonReg22,
+            ),
+          ],
         );
       },
     );
