@@ -13,6 +13,8 @@ import 'package:triple_seven_slots_game/widgets/777_slots_screen/prize_dialog.da
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/user_balance.dart';
 import 'package:triple_seven_slots_game/widgets/common/common_lottie.dart';
 
+const _coinsDurationSeconds = 2;
+
 class SlotMachine extends StatefulWidget {
   const SlotMachine({Key? key}) : super(key: key);
 
@@ -37,7 +39,8 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
     _goldenLottieController =
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
-    _coinsLottieController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    _coinsLottieController =
+        AnimationController(vsync: this, duration: const Duration(seconds: _coinsDurationSeconds));
     listenSlotController();
     super.initState();
   }
@@ -84,7 +87,11 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
                     width: size.width * 0.45,
                     height: size.height * 0.7,
                     padding: EdgeInsets.only(
-                        top: size.height * 0.2, bottom: size.height * 0.1, left: 50, right: 50),
+                      top: size.height * 0.2,
+                      bottom: size.height * 0.1,
+                      left: 50,
+                      right: 50,
+                    ),
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: svg_provider.Svg(boardIc),
@@ -180,11 +187,12 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
           _buildLottie(state.prize!.lottieType),
         ],
       ),
-    ).then((_) {
+    ).then((_) async {
+      _coinsLottieController.forward().then((_) => _coinsLottieController.reset());
+      await Future.delayed(const Duration(seconds: _coinsDurationSeconds ~/ 2));
       context
           .read<SlotMachineBloc>()
           .add(UpdateUserBalance(state.prize!.multiplier * state.currentBet));
-      _coinsLottieController.forward().then((_) => _coinsLottieController.reset());
     });
     _playLottie(state.prize!.lottieType);
   }
