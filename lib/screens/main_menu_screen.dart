@@ -44,7 +44,10 @@ class MainMenuScreen extends StatelessWidget {
                   asset: seventhIc,
                 ),
                 const SizedBox(width: 50),
-                GameButton(onPressed: () {}, asset: appleIc),
+                GameButton(
+                  onPressed: () => Navigator.pushNamed(context, spinWheelScreenRoute),
+                  asset: appleIc,
+                ),
               ],
             ),
           )

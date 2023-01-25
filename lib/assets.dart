@@ -22,3 +22,8 @@ const cellIc = 'assets/images/cell.svg';
 const confettiLottie = 'assets/lottie/confetti_lottie.json';
 const goldenConfettiLottie = 'assets/lottie/golden_confetti_lottie.json';
 const coinsLottie = 'assets/lottie/coins_lottie.json';
+
+/// spin wheel
+const wheelBorder = 'assets/images/wheel_border.png';
+const spinningPointer = 'assets/images/pointer.png';
+const star = 'assets/images/star.png';
