@@ -18,7 +18,7 @@ class SlotMachineRepository {
       prizeType: PrizeType.cherry,
       name: 'Cherry',
       lottieType: LottieType.goldenConfetti,
-      multiplier: 7,
+      multiplier: 6,
     ),
     2: Prize(
       asset: appleIc,
@@ -32,14 +32,14 @@ class SlotMachineRepository {
       prizeType: PrizeType.crown,
       name: 'Crown',
       lottieType: LottieType.confetti,
-      multiplier: 4,
+      multiplier: 3,
     ),
     4: Prize(
       asset: barIc,
       prizeType: PrizeType.bar,
       name: 'Bar',
       lottieType: LottieType.confetti,
-      multiplier: 3,
+      multiplier: 2,
     ),
     5: Prize(
       asset: coinIc,
