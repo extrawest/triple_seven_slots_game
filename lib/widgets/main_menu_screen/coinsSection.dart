@@ -11,20 +11,21 @@ class CoinsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SlotMachineBloc, SlotMachineState>(
-      builder: (context, state) => Stack(
+    return BlocBuilder<SlotMachineBloc, SlotMachineState>(builder: (context, state) {
+      final balance = state.userBalance.cutBalance();
+      return Stack(
         children: [
           SvgPicture.asset(coinsSection),
           Positioned(
-            right: 12,
+            right: 10,
             top: 20,
             child: Text(
-              state.userBalance.cutBalance(),
-              style: TextStyles.clarendonReg22,
+              balance,
+              style: balance.length > 4 ? TextStyles.clarendonReg18 : TextStyles.clarendonReg22,
             ),
           ),
         ],
-      ),
-    );
+      );
+    });
   }
 }
