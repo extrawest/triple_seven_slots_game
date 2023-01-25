@@ -4,25 +4,24 @@ const balanceKey = 'balance_key';
 const firstTimeKey = 'first_time';
 
 abstract class UserBalanceLocalStorage {
-  int? getUserBalance();
+  Future<int?> getUserBalance();
   void updateUserBalance(int balance);
 }
 
 class UserBalanceLocalStorageImpl implements UserBalanceLocalStorage {
-  late final SharedPreferences sharedPreferences;
+  SharedPreferences? sharedPreferences;
 
-  UserBalanceLocalStorageImpl() {
-    init();
-  }
-
-  void init() async {
+  Future<void> init() async {
     sharedPreferences = await SharedPreferences.getInstance();
   }
 
   @override
-  int? getUserBalance() {
+  Future<int?> getUserBalance() async {
     try {
-      return sharedPreferences.getInt(balanceKey);
+      if (sharedPreferences == null) {
+        await init();
+      }
+      return sharedPreferences!.getInt(balanceKey);
     } catch (e) {
       rethrow;
     }
@@ -30,6 +29,10 @@ class UserBalanceLocalStorageImpl implements UserBalanceLocalStorage {
 
   @override
   void updateUserBalance(int balance) {
-    sharedPreferences.setInt(balanceKey, balance);
+    try {
+      sharedPreferences!.setInt(balanceKey, balance);
+    } catch (e) {
+      rethrow;
+    }
   }
 }

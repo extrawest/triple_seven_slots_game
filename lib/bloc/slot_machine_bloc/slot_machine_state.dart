@@ -7,6 +7,7 @@ class SlotMachineState extends Equatable {
   final Prize? prize;
 
   final SlotMachineStatus slotMachineStatus;
+  final BalanceStatus balanceStatus;
 
   final int currentBet;
 
@@ -21,6 +22,7 @@ class SlotMachineState extends Equatable {
     this.prize,
     this.currentBet = defaultBet,
     this.slotMachineStatus = SlotMachineStatus.initial,
+    this.balanceStatus = BalanceStatus.initial,
     this.previousBet = defaultBet,
     this.userBalance = 0,
   });
@@ -34,6 +36,7 @@ class SlotMachineState extends Equatable {
           int? currentBet,
           int? previousBet,
           SlotMachineStatus? slotMachineStatus,
+          BalanceStatus? balanceStatus,
           int? userBalance}) =>
       SlotMachineState(
         isSpinning: isSpinning ?? this.isSpinning,
@@ -43,6 +46,7 @@ class SlotMachineState extends Equatable {
         currentBet: currentBet ?? this.currentBet,
         previousBet: previousBet ?? this.currentBet,
         slotMachineStatus: slotMachineStatus ?? this.slotMachineStatus,
+        balanceStatus: balanceStatus ?? this.balanceStatus,
         userBalance: userBalance ?? this.userBalance,
       );
 
@@ -54,6 +58,7 @@ class SlotMachineState extends Equatable {
         prize,
         currentBet,
         slotMachineStatus,
+        balanceStatus,
         previousBet,
         userBalance,
       ];

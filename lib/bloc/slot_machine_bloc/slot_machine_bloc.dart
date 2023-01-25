@@ -50,10 +50,12 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
     emit(state.copyWith(isSpinning: false));
   }
 
-  void _onFetchUserBalance(FetchUserBalance event, Emitter<SlotMachineState> emit) {
+  void _onFetchUserBalance(FetchUserBalance event, Emitter<SlotMachineState> emit) async {
     try {
-      final balance = _userBalanceRepository.getBalance();
-      emit(state.copyWith(userBalance: balance ?? initialBalance));
+      emit(state.copyWith(balanceStatus: BalanceStatus.loading));
+      final balance = await _userBalanceRepository.getBalance();
+      emit(state.copyWith(
+          userBalance: balance ?? initialBalance, balanceStatus: BalanceStatus.loaded));
     } catch (e) {}
   }
 

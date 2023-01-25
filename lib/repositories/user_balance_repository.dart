@@ -1,7 +1,7 @@
 import 'package:triple_seven_slots_game/database/user_balance_local_storage.dart';
 
 abstract class UserBalanceRepository {
-  int? getBalance();
+  Future<int?> getBalance();
   void setBalance(int balance);
 }
 
@@ -12,9 +12,9 @@ class UserBalanceRepositoryImpl implements UserBalanceRepository {
       : _userBalanceLocalStorage = userBalanceLocalStorage;
 
   @override
-  int? getBalance() {
+  Future<int?> getBalance() async {
     try {
-      return _userBalanceLocalStorage.getUserBalance();
+      return await _userBalanceLocalStorage.getUserBalance();
     } catch (e) {
       rethrow;
     }
