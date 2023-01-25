@@ -21,3 +21,4 @@ const cellIc = 'assets/images/cell.svg';
 // lotties
 const confettiLottie = 'assets/lottie/confetti_lottie.json';
 const goldenConfettiLottie = 'assets/lottie/golden_confetti_lottie.json';
+const coinsLottie = 'assets/lottie/coins_lottie.json';

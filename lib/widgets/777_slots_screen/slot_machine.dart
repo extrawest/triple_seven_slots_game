@@ -6,6 +6,7 @@ import 'package:roll_slot_machine/roll_slot_controller.dart';
 import 'package:triple_seven_slots_game/assets.dart';
 import 'package:triple_seven_slots_game/bloc/slot_machine_bloc/slot_machine_bloc.dart';
 import 'package:triple_seven_slots_game/models/lottie_type.dart';
+import 'package:triple_seven_slots_game/widgets/777_slots_screen/coins_lottie.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/common_roll_slot.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/control_panel.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/prize_dialog.dart';
@@ -27,6 +28,7 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
 
   late final AnimationController _confettiLottieController;
   late final AnimationController _goldenLottieController;
+  late final AnimationController _coinsLottieController;
 
   @override
   void initState() {
@@ -35,6 +37,7 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
     _goldenLottieController =
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    _coinsLottieController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
     listenSlotController();
     super.initState();
   }
@@ -52,10 +55,7 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
 
   @override
   void dispose() {
-    _firstController.dispose();
-    _secondController.dispose();
-    _thirdController.dispose();
-    _fourthController.dispose();
+    disposeControllers();
     super.dispose();
   }
 
@@ -73,30 +73,35 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
           listener: _prizeListener,
         ),
       ],
-      child: Column(
+      child: Stack(
         children: [
-          const UserBalance(),
-          Flexible(
-            child: AbsorbPointer(
-              child: Container(
-                width: size.width * 0.45,
-                height: size.height * 0.7,
-                padding: EdgeInsets.only(
-                    top: size.height * 0.2, bottom: size.height * 0.1, left: 50, right: 50),
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: svg_provider.Svg(boardIc),
-                    fit: BoxFit.cover,
+          Column(
+            children: [
+              const UserBalance(),
+              Flexible(
+                child: AbsorbPointer(
+                  child: Container(
+                    width: size.width * 0.45,
+                    height: size.height * 0.7,
+                    padding: EdgeInsets.only(
+                        top: size.height * 0.2, bottom: size.height * 0.1, left: 50, right: 50),
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: svg_provider.Svg(boardIc),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: _buildRollSlots(),
+                    ),
                   ),
                 ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: _buildRollSlots(),
-                ),
               ),
-            ),
+              const ControlPanel(),
+            ],
           ),
-          const ControlPanel(),
+          CoinsLottie(animationController: _coinsLottieController),
         ],
       ),
     );
@@ -154,6 +159,16 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
     } else if (lottieType.isGoldenConfetti) {
       _goldenLottieController.forward().then((_) => _goldenLottieController.reset());
     }
+  }
+
+  void disposeControllers() {
+    _firstController.dispose();
+    _secondController.dispose();
+    _thirdController.dispose();
+    _fourthController.dispose();
+    _goldenLottieController.dispose();
+    _confettiLottieController.dispose();
+    _coinsLottieController.dispose();
   }
 
   Widget _buildLottie(LottieType lottieType) {
