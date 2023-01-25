@@ -16,14 +16,12 @@ class SpinWheelScreen extends StatelessWidget {
     return Provider<StreamController<int>>(
       create: (context) => _fortuneWheelNotifier,
       builder: (context, child) => GradientBackgroundScaffold(
-        child: Flexible(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: const [
-              Flexible(child: SpinWheel()),
-              Flexible(child: SpinButton()),
-            ],
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: const [
+            Flexible(child: SpinWheel()),
+            Flexible(child: SpinButton()),
+          ],
         ),
       ),
     );
