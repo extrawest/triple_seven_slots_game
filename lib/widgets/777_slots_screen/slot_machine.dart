@@ -197,7 +197,9 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
       builder: (_) => Center(
         child: JackpotSpinWheel(bet: bet),
       ),
-    );
+    ).then((_) async {
+      _coinsLottieController.forward().then((_) => _coinsLottieController.reset());
+    });
   }
 
   void _showPrizeDialog(BuildContext context, SlotMachineState state) {
