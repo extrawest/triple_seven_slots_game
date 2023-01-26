@@ -8,7 +8,7 @@ import 'package:triple_seven_slots_game/assets.dart';
 import 'package:triple_seven_slots_game/bloc/spin_wheel_cubit/spin_wheel_cubit.dart';
 import 'package:triple_seven_slots_game/bloc/spin_wheel_cubit/spin_wheel_state.dart';
 import 'package:triple_seven_slots_game/consts.dart';
-import 'package:triple_seven_slots_game/widgets/common/spin_button.dart';
+import 'package:triple_seven_slots_game/widgets/common/common_spin_button.dart';
 import 'package:triple_seven_slots_game/widgets/spin_wheel/spin_wheel.dart';
 
 class JackpotSpinWheel extends StatelessWidget {

@@ -6,7 +6,7 @@ import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class CommonButton extends StatelessWidget {
   final String title;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   const CommonButton({required this.onTap, required this.title, Key? key}) : super(key: key);
 
   @override
