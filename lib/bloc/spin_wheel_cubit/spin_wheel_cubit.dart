@@ -2,9 +2,13 @@ import 'dart:math';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:triple_seven_slots_game/bloc/spin_wheel_cubit/spin_wheel_state.dart';
+import 'package:triple_seven_slots_game/repositories/user_data_repository.dart';
 
 class SpinWheelCubit extends Cubit<SpinWheelState> {
-  SpinWheelCubit() : super(const SpinWheelState());
+  final UserDataRepository _userDataRepository;
+  SpinWheelCubit({required UserDataRepository userDataRepository})
+      : _userDataRepository = userDataRepository,
+        super(const SpinWheelState());
 
   void setIsSpinning(bool isSpinning) {
     emit(state.copyWith(isSpinning: isSpinning));
