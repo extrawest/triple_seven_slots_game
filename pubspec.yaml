@@ -38,8 +38,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_bloc: ^8.1.1
   flutter_svg: ^1.1.6
-#  roll_slot_machine:
-#    path: ../flutter_roll_slot_machine
+  roll_slot_machine:
+    path: ../flutter_roll_slot_machine
   zoom_tap_animation: ^1.1.0
   lottie: ^2.2.0
   flutter_svg_provider: ^1.0.3

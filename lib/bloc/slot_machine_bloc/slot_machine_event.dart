@@ -20,12 +20,3 @@ class IncreaseBet extends SlotMachineEvent {
 class DecreaseBet extends SlotMachineEvent {
   const DecreaseBet();
 }
-
-class FetchUserBalance extends SlotMachineEvent {
-  const FetchUserBalance();
-}
-
-class UpdateUserBalance extends SlotMachineEvent {
-  final int balanceChange;
-  const UpdateUserBalance(this.balanceChange);
-}

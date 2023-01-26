@@ -6,65 +6,38 @@ import 'package:triple_seven_slots_game/consts.dart';
 import 'package:triple_seven_slots_game/models/prize.dart';
 import 'package:triple_seven_slots_game/models/slot_machine_status.dart';
 import 'package:triple_seven_slots_game/repositories/slot_machine_repository.dart';
-import 'package:triple_seven_slots_game/repositories/user_balance_repository.dart';
 
 part 'slot_machine_event.dart';
 part 'slot_machine_state.dart';
 
 class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
-  final UserBalanceRepository _userBalanceRepository;
-
-  SlotMachineBloc({required UserBalanceRepository userBalanceRepository})
-      : _userBalanceRepository = userBalanceRepository,
-        super(const SlotMachineState()) {
+  SlotMachineBloc() : super(const SlotMachineState()) {
     on<SpinMachineEvent>(_onSpinMachineEvent);
     on<IncreaseBet>(_onIncreaseBet);
     on<DecreaseBet>(_onDecreaseBet);
     on<StopMachine>(_onStopMachine);
-    on<FetchUserBalance>(_onFetchUserBalance);
-    on<UpdateUserBalance>(_onUpdateUserBalance);
   }
 
   void _onSpinMachineEvent(SpinMachineEvent event, Emitter<SlotMachineState> emit) {
-    if (state.userBalance >= event.bet) {
-      emit(state.copyWith(slotMachineStatus: SlotMachineStatus.loading));
-      final prizesIndexes = generatePrizes();
-      final prizeIndex = generatePrizeIndex(prizesIndexes);
-      add(UpdateUserBalance(-event.bet));
+    emit(state.copyWith(slotMachineStatus: SlotMachineStatus.loading));
+    final prizesIndexes = generatePrizes();
+    final prizeIndex = generatePrizeIndex(prizesIndexes);
 
-      if (prizeIndex != null) {
-        emit(state.copyWith(
-          prizeIndexes: prizesIndexes,
-          winPrizeIndex: prizeIndex,
-          isSpinning: true,
-          prize: SlotMachineRepository.prizes[prizeIndex],
-        ));
-      } else {
-        emit(state.copyWith(
-            prizeIndexes: prizesIndexes, isSpinning: true, prize: null, keepPrize: false));
-      }
+    if (prizeIndex != null) {
+      emit(state.copyWith(
+        prizeIndexes: prizesIndexes,
+        winPrizeIndex: prizeIndex,
+        isSpinning: true,
+        prize: SlotMachineRepository.prizes[prizeIndex],
+      ));
+    } else {
+      emit(state.copyWith(
+          prizeIndexes: prizesIndexes, isSpinning: true, prize: null, keepPrize: false));
     }
   }
 
   void _onStopMachine(StopMachine event, Emitter<SlotMachineState> emit) {
     emit(state.copyWith(isSpinning: false));
-  }
-
-  void _onFetchUserBalance(FetchUserBalance event, Emitter<SlotMachineState> emit) async {
-    try {
-      emit(state.copyWith(balanceStatus: BalanceStatus.loading));
-      final balance = await _userBalanceRepository.getBalance();
-      emit(state.copyWith(
-          userBalance: balance ?? initialBalance, balanceStatus: BalanceStatus.loaded));
-    } catch (e) {}
-  }
-
-  void _onUpdateUserBalance(UpdateUserBalance event, Emitter<SlotMachineState> emit) {
-    try {
-      final newBalance = state.userBalance + event.balanceChange;
-      _userBalanceRepository.setBalance(newBalance);
-      emit(state.copyWith(userBalance: newBalance));
-    } catch (e) {}
   }
 
   List<int> generatePrizes() {

@@ -5,6 +5,7 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 import 'package:roll_slot_machine/roll_slot_controller.dart';
 import 'package:triple_seven_slots_game/assets.dart';
 import 'package:triple_seven_slots_game/bloc/slot_machine_bloc/slot_machine_bloc.dart';
+import 'package:triple_seven_slots_game/bloc/user_balance_cubit/user_balance_cubit.dart';
 import 'package:triple_seven_slots_game/models/lottie_type.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/coins_lottie.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/common_roll_slot.dart';
@@ -34,7 +35,6 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
 
   @override
   void initState() {
-    context.read<SlotMachineBloc>().add(const FetchUserBalance());
     _confettiLottieController =
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
     _goldenLottieController =
@@ -198,8 +198,8 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
       _coinsLottieController.forward().then((_) => _coinsLottieController.reset());
       await Future.delayed(const Duration(seconds: _coinsDurationSeconds ~/ 2));
       context
-          .read<SlotMachineBloc>()
-          .add(UpdateUserBalance(state.prize!.multiplier * state.currentBet));
+          .read<UserBalanceCubit>()
+          .updateUserBalance(state.prize!.multiplier * state.currentBet);
     });
     _playLottie(state.prize!.lottieType);
   }

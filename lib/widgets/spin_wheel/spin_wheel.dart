@@ -6,6 +6,7 @@ import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:triple_seven_slots_game/assets.dart';
 import 'package:triple_seven_slots_game/bloc/spin_wheel_cubit/spin_wheel_cubit.dart';
 import 'package:triple_seven_slots_game/bloc/spin_wheel_cubit/spin_wheel_state.dart';
+import 'package:triple_seven_slots_game/bloc/user_balance_cubit/user_balance_cubit.dart';
 import 'package:triple_seven_slots_game/theme.dart';
 import 'package:triple_seven_slots_game/widgets/spin_wheel/fortune_item.dart';
 import 'package:triple_seven_slots_game/widgets/spin_wheel/spin_prize_dialog.dart';
@@ -60,12 +61,15 @@ class SpinWheel extends StatelessWidget {
 
   void _spinWheelListener(BuildContext context, SpinWheelState state) {
     if (state.currentPrizeMultiplier != null) {
+      final prize = (state.currentPrizeMultiplier! + 1) * 1000;
       showDialog(
         context: context,
         builder: (_) => SpinPrizeDialog(
-          coins: (state.currentPrizeMultiplier! + 1) * 1000,
+          coins: prize,
         ),
       );
+      final previousBalance = context.read<UserBalanceCubit>().state.userBalance;
+      context.read<UserBalanceCubit>().updateUserBalance(previousBalance + prize);
     }
   }
 }

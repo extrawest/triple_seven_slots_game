@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:triple_seven_slots_game/assets.dart';
 import 'package:triple_seven_slots_game/bloc/slot_machine_bloc/slot_machine_bloc.dart';
+import 'package:triple_seven_slots_game/bloc/user_balance_cubit/user_balance_cubit.dart';
 import 'package:triple_seven_slots_game/theme.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/bet_cell.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
@@ -73,6 +74,9 @@ class ControlPanel extends StatelessWidget {
 
   void _startSlotMachine(BuildContext context) {
     final bet = context.read<SlotMachineBloc>().state.currentBet;
-    context.read<SlotMachineBloc>().add(SpinMachineEvent(bet: bet));
+    if (context.read<UserBalanceCubit>().state.userBalance >= bet) {
+      context.read<SlotMachineBloc>().add(SpinMachineEvent(bet: bet));
+      context.read<UserBalanceCubit>().updateUserBalance(-bet);
+    }
   }
 }
