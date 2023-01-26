@@ -69,7 +69,7 @@ class SpinWheel extends StatelessWidget {
         ),
       );
       final previousBalance = context.read<UserBalanceCubit>().state.userBalance;
-      context.read<UserBalanceCubit>().updateUserBalance(previousBalance + prize);
+      context.read<UserBalanceCubit>().updateUserBalance(prize);
     }
   }
 }
