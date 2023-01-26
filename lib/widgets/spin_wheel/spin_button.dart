@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:triple_seven_slots_game/bloc/spin_wheel_cubit/spin_wheel_cubit.dart';
 import 'package:triple_seven_slots_game/bloc/spin_wheel_cubit/spin_wheel_state.dart';
-import 'package:triple_seven_slots_game/theme.dart';
+import 'package:triple_seven_slots_game/widgets/common/spin_button.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class SpinButton extends StatefulWidget {
@@ -32,10 +32,11 @@ class _SpinButtonState extends State<SpinButton> {
                 context.read<SpinWheelCubit>().updateSpinDate();
               },
         child: MouseRegion(
-            cursor: _isHovered ? SystemMouseCursors.click : SystemMouseCursors.basic,
-            onHover: (event) => setState(() => _isHovered = true),
-            onExit: (event) => setState(() => _isHovered = false),
-            child: const Text('Spin', style: TextStyles.clarendonReg22)),
+          cursor: _isHovered ? SystemMouseCursors.click : SystemMouseCursors.basic,
+          onHover: (event) => setState(() => _isHovered = true),
+          onExit: (event) => setState(() => _isHovered = false),
+          child: const CommonSpinButton(),
+        ),
       ),
     );
   }
