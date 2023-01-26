@@ -7,8 +7,10 @@ import 'package:triple_seven_slots_game/theme.dart';
 
 class CustomFortuneItem extends StatelessWidget {
   final int multiplier;
+  final String asset;
 
-  const CustomFortuneItem({required this.multiplier, Key? key}) : super(key: key);
+  const CustomFortuneItem({required this.asset, required this.multiplier, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +39,9 @@ class CustomFortuneItem extends StatelessWidget {
                       child: Container(
                         width: 50,
                         height: 50,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage(star),
+                            image: AssetImage(asset),
                             fit: BoxFit.fill,
                           ),
                         ),

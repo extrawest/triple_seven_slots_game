@@ -30,7 +30,7 @@ class SpinWheel extends StatelessWidget {
               items: List.generate(
                 7,
                 (index) => FortuneItem(
-                  child: CustomFortuneItem(multiplier: index + 1),
+                  child: CustomFortuneItem(multiplier: index + 1, asset: star),
                   style: FortuneItemStyle(
                     color: index % 2 == 0 ? orange2 : orange1,
                     borderColor: darkOrange,
