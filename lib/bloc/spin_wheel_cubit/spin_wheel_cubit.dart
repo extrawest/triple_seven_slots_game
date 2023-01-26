@@ -49,7 +49,7 @@ class SpinWheelCubit extends Cubit<SpinWheelState> {
       final timeLeftDuration = -(DateTime.now().difference(unlockDate));
       if (timeLeftDuration.inSeconds == 0) {
         _spinWheelLockTimer.cancel();
-        emit(state.copyWith(timeLeft: '', isWheelAvailable: true));
+        emit(state.copyWith(timeLeft: '00:00:00', isWheelAvailable: true));
       } else {
         final timeLeft = _formatDuration(timeLeftDuration);
         emit(state.copyWith(timeLeft: timeLeft));
@@ -69,7 +69,7 @@ class SpinWheelCubit extends Cubit<SpinWheelState> {
   }
 
   bool _checkIf8HoursPassed(DateTime lastDate) {
-    final differenceInHours = lastDate.difference(DateTime.now()).inHours;
-    return differenceInHours >= 8;
+    final differenceInHours = DateTime.now().difference(lastDate).inSeconds;
+    return differenceInHours >= 20;
   }
 }

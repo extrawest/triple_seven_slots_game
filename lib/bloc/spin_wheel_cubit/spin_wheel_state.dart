@@ -13,7 +13,7 @@ class SpinWheelState extends Equatable {
     this.isSpinning = false,
     this.rotationCount = 10,
     this.isWheelAvailable = false,
-    this.timeLeft = '',
+    this.timeLeft = '00:00:00',
   });
 
   SpinWheelState copyWith({
