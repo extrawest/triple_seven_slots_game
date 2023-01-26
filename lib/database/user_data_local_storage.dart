@@ -2,13 +2,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const balanceKey = 'balance_key';
 const firstTimeKey = 'first_time';
+const lastSpinKey = 'last_spin';
 
-abstract class UserBalanceLocalStorage {
+abstract class UserDataLocalStorage {
   Future<int?> getUserBalance();
   void updateUserBalance(int balance);
+  DateTime? getLastSpinDateTime();
+  void updateLastSpinDateTime();
 }
 
-class UserBalanceLocalStorageImpl implements UserBalanceLocalStorage {
+class UserDataLocalStorageImpl implements UserDataLocalStorage {
   SharedPreferences? sharedPreferences;
 
   Future<void> init() async {
@@ -31,6 +34,28 @@ class UserBalanceLocalStorageImpl implements UserBalanceLocalStorage {
   void updateUserBalance(int balance) {
     try {
       sharedPreferences!.setInt(balanceKey, balance);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  DateTime? getLastSpinDateTime() {
+    try {
+      final lastSpinDateTime = sharedPreferences!.getString(lastSpinKey);
+      if (lastSpinDateTime != null) {
+        return DateTime.tryParse(lastSpinDateTime);
+      }
+    } catch (e) {
+      rethrow;
+    }
+    return null;
+  }
+
+  @override
+  void updateLastSpinDateTime() {
+    try {
+      sharedPreferences!.setString(lastSpinKey, DateTime.now().toString());
     } catch (e) {
       rethrow;
     }

@@ -2,12 +2,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:triple_seven_slots_game/bloc/user_balance_cubit/user_balance_state.dart';
 import 'package:triple_seven_slots_game/consts.dart';
 import 'package:triple_seven_slots_game/models/slot_machine_status.dart';
-import 'package:triple_seven_slots_game/repositories/user_balance_repository.dart';
+import 'package:triple_seven_slots_game/repositories/user_data_repository.dart';
 
 class UserBalanceCubit extends Cubit<UserBalanceState> {
-  final UserBalanceRepository _userBalanceRepository;
+  final UserDataRepository _userBalanceRepository;
 
-  UserBalanceCubit({required UserBalanceRepository userBalanceRepository})
+  UserBalanceCubit({required UserDataRepository userBalanceRepository})
       : _userBalanceRepository = userBalanceRepository,
         super(const UserBalanceState());
 
