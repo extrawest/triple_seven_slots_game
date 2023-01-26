@@ -11,22 +11,9 @@ import 'package:triple_seven_slots_game/consts.dart';
 import 'package:triple_seven_slots_game/widgets/common/spin_button.dart';
 import 'package:triple_seven_slots_game/widgets/spin_wheel/spin_wheel.dart';
 
-class JackpotSpinWheel extends StatefulWidget {
+class JackpotSpinWheel extends StatelessWidget {
   final int bet;
   const JackpotSpinWheel({required this.bet, Key? key}) : super(key: key);
-
-  @override
-  State<JackpotSpinWheel> createState() => _JackpotSpinWheelState();
-}
-
-class _JackpotSpinWheelState extends State<JackpotSpinWheel> with SingleTickerProviderStateMixin {
-  late final AnimationController _lottieController;
-
-  @override
-  void initState() {
-    _lottieController = AnimationController(vsync: this);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +25,7 @@ class _JackpotSpinWheelState extends State<JackpotSpinWheel> with SingleTickerPr
             Flexible(
               child: SpinWheel(
                 asset: seventhIc,
-                defaultWin: widget.bet * jackPotMultiplier,
+                defaultWin: bet * jackPotMultiplier,
               ),
             ),
             const SizedBox(height: 10),
