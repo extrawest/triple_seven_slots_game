@@ -3,7 +3,7 @@ import 'package:triple_seven_slots_game/database/user_data_local_storage.dart';
 abstract class UserDataRepository {
   Future<int?> getBalance();
   void setBalance(int balance);
-  DateTime? getLastSpinDateTime();
+  Future<DateTime?> getLastSpinDateTime();
   void updateLastSpinDateTime();
 }
 
@@ -32,13 +32,17 @@ class UserDataRepositoryImpl implements UserDataRepository {
   }
 
   @override
-  DateTime? getLastSpinDateTime() {
-    // TODO: implement getLastSpinDateTime
-    throw UnimplementedError();
+  Future<DateTime?> getLastSpinDateTime() async {
+    try {
+      return await _userBalanceLocalStorage.getLastSpinDateTime();
+    } catch (e) {}
+    return null;
   }
 
   @override
   void updateLastSpinDateTime() {
-    // TODO: implement updateLastSpinDateTime
+    try {
+      _userBalanceLocalStorage.updateLastSpinDateTime();
+    } catch (e) {}
   }
 }

@@ -7,7 +7,7 @@ const lastSpinKey = 'last_spin';
 abstract class UserDataLocalStorage {
   Future<int?> getUserBalance();
   void updateUserBalance(int balance);
-  DateTime? getLastSpinDateTime();
+  Future<DateTime?> getLastSpinDateTime();
   void updateLastSpinDateTime();
 }
 
@@ -40,8 +40,11 @@ class UserDataLocalStorageImpl implements UserDataLocalStorage {
   }
 
   @override
-  DateTime? getLastSpinDateTime() {
+  Future<DateTime?> getLastSpinDateTime() async {
     try {
+      if (sharedPreferences == null) {
+        await init();
+      }
       final lastSpinDateTime = sharedPreferences!.getString(lastSpinKey);
       if (lastSpinDateTime != null) {
         return DateTime.tryParse(lastSpinDateTime);

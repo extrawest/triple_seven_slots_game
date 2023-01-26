@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:triple_seven_slots_game/assets.dart';
+import 'package:triple_seven_slots_game/bloc/spin_wheel_cubit/spin_wheel_cubit.dart';
 import 'package:triple_seven_slots_game/bloc/user_balance_cubit/user_balance_cubit.dart';
 import 'package:triple_seven_slots_game/bloc/user_balance_cubit/user_balance_state.dart';
 import 'package:triple_seven_slots_game/models/slot_machine_status.dart';
@@ -24,6 +25,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   @override
   void initState() {
     context.read<UserBalanceCubit>().fetchUserBalance();
+    context.read<SpinWheelCubit>().getLastSpinDate();
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 1),

@@ -29,6 +29,7 @@ class _SpinButtonState extends State<SpinButton> {
                 context.read<StreamController<int>>().sink.add(random);
                 context.read<SpinWheelCubit>().setIsSpinning(true);
                 context.read<SpinWheelCubit>().setPrize(random);
+                context.read<SpinWheelCubit>().updateSpinDate();
               },
         child: MouseRegion(
             cursor: _isHovered ? SystemMouseCursors.click : SystemMouseCursors.basic,
