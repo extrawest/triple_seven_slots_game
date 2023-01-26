@@ -5,11 +5,14 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 import 'package:roll_slot_machine/roll_slot_controller.dart';
 import 'package:triple_seven_slots_game/assets.dart';
 import 'package:triple_seven_slots_game/bloc/slot_machine_bloc/slot_machine_bloc.dart';
+import 'package:triple_seven_slots_game/bloc/spin_wheel_cubit/spin_wheel_cubit.dart';
 import 'package:triple_seven_slots_game/bloc/user_balance_cubit/user_balance_cubit.dart';
 import 'package:triple_seven_slots_game/models/lottie_type.dart';
+import 'package:triple_seven_slots_game/models/prize.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/coins_lottie.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/common_roll_slot.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/control_panel.dart';
+import 'package:triple_seven_slots_game/widgets/777_slots_screen/jackpot_spin_wheel.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/prize_dialog.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/user_balance.dart';
 import 'package:triple_seven_slots_game/widgets/common/common_lottie.dart';
@@ -179,8 +182,22 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
 
   void _prizeListener(BuildContext context, SlotMachineState state) {
     if (state.isSpinning == false && state.prize != null) {
-      _showPrizeDialog(context, state);
+      if (state.prize!.prizeType.isSeventh) {
+        context.read<SpinWheelCubit>().setIsJackpotWheelComplete(false);
+        _showJackpotDialog(context, state.currentBet);
+      } else {
+        _showPrizeDialog(context, state);
+      }
     }
+  }
+
+  void _showJackpotDialog(BuildContext context, int bet) {
+    showDialog(
+      context: context,
+      builder: (_) => Center(
+        child: JackpotSpinWheel(bet: bet),
+      ),
+    );
   }
 
   void _showPrizeDialog(BuildContext context, SlotMachineState state) {

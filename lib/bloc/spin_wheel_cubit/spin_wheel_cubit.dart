@@ -21,6 +21,10 @@ class SpinWheelCubit extends Cubit<SpinWheelState> {
     emit(state.copyWith(currentPrizeMultiplier: prizeMultiplier));
   }
 
+  void setIsJackpotWheelComplete(bool value) {
+    emit(state.copyWith(isJackpotWheelSpinComplete: value));
+  }
+
   void updateSpinDate() {
     try {
       _userDataRepository.updateLastSpinDateTime();

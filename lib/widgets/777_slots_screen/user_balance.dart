@@ -13,27 +13,29 @@ class UserBalance extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SlotMachineBloc, SlotMachineState>(
-      builder: (context, slotMachineState) => BlocBuilder<UserBalanceCubit, UserBalanceState>(
-        buildWhen: (prev, curr) => prev.userBalance != curr.userBalance,
-        builder: (context, state) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                coinIc,
-                width: 30,
-              ),
-              Countup(
-                begin: (state.userBalance + slotMachineState.currentBet).toDouble(),
-                end: state.userBalance.toDouble(),
-                duration: const Duration(milliseconds: 500),
-                style: TextStyles.clarendonReg22,
-              ),
-            ],
-          );
-        },
-      ),
+    return BlocBuilder<UserBalanceCubit, UserBalanceState>(
+      buildWhen: (prev, curr) => prev.userBalance != curr.userBalance,
+      builder: (context, state) {
+        return BlocBuilder<SlotMachineBloc, SlotMachineState>(
+          builder: (context, slotMachineState) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  coinIc,
+                  width: 30,
+                ),
+                Countup(
+                  begin: (state.userBalance - slotMachineState.currentBet).toDouble(),
+                  end: state.userBalance.toDouble(),
+                  duration: const Duration(milliseconds: 500),
+                  style: TextStyles.clarendonReg22,
+                ),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 }

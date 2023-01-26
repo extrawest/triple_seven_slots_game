@@ -12,7 +12,9 @@ import 'package:triple_seven_slots_game/widgets/spin_wheel/fortune_item.dart';
 import 'package:triple_seven_slots_game/widgets/spin_wheel/spin_prize_dialog.dart';
 
 class SpinWheel extends StatelessWidget {
-  const SpinWheel({Key? key}) : super(key: key);
+  final String asset;
+  final int defaultWin;
+  const SpinWheel({required this.defaultWin, required this.asset, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class SpinWheel extends StatelessWidget {
               items: List.generate(
                 7,
                 (index) => FortuneItem(
-                  child: CustomFortuneItem(multiplier: index + 1, asset: star),
+                  child: CustomFortuneItem(multiplier: index + 1, asset: asset),
                   style: FortuneItemStyle(
                     color: index % 2 == 0 ? orange2 : orange1,
                     borderColor: darkOrange,
@@ -61,10 +63,11 @@ class SpinWheel extends StatelessWidget {
 
   void _spinWheelListener(BuildContext context, SpinWheelState state) {
     if (state.currentPrizeMultiplier != null) {
-      final prize = (state.currentPrizeMultiplier! + 1) * 1000;
+      final prize = (state.currentPrizeMultiplier! + 1) * defaultWin;
       showDialog(
         context: context,
         builder: (_) => SpinPrizeDialog(
+          asset: asset,
           coins: prize,
         ),
       );

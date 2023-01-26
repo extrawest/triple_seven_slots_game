@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:triple_seven_slots_game/consts.dart';
@@ -41,8 +39,9 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
   }
 
   List<int> generatePrizes() {
-    return List<int>.generate(
-        numberOfSlots, (_) => Random().nextInt(SlotMachineRepository.prizes.length));
+    return [0, 0, 0, 0];
+    // return List<int>.generate(
+    //     numberOfSlots, (_) => Random().nextInt(SlotMachineRepository.prizes.length));
   }
 
   int? generatePrizeIndex(List<int> prizeIndexes) {

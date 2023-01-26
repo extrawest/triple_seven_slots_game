@@ -8,12 +8,15 @@ class SpinWheelState extends Equatable {
   final bool isWheelAvailable;
   final String timeLeft;
 
+  final bool isJackpotWheelSpinComplete;
+
   const SpinWheelState({
     this.currentPrizeMultiplier,
     this.isSpinning = false,
     this.rotationCount = 10,
     this.isWheelAvailable = false,
     this.timeLeft = '00:00:00',
+    this.isJackpotWheelSpinComplete = false,
   });
 
   SpinWheelState copyWith({
@@ -22,6 +25,7 @@ class SpinWheelState extends Equatable {
     int? rotationCount,
     bool? isWheelAvailable,
     String? timeLeft,
+    bool? isJackpotWheelSpinComplete,
   }) {
     return SpinWheelState(
       isSpinning: isSpinning ?? this.isSpinning,
@@ -29,6 +33,7 @@ class SpinWheelState extends Equatable {
       rotationCount: rotationCount ?? this.rotationCount,
       isWheelAvailable: isWheelAvailable ?? this.isWheelAvailable,
       timeLeft: timeLeft ?? this.timeLeft,
+      isJackpotWheelSpinComplete: isJackpotWheelSpinComplete ?? this.isJackpotWheelSpinComplete,
     );
   }
 
@@ -39,5 +44,6 @@ class SpinWheelState extends Equatable {
         rotationCount,
         isWheelAvailable,
         timeLeft,
+        isJackpotWheelSpinComplete,
       ];
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:triple_seven_slots_game/assets.dart';
 import 'package:triple_seven_slots_game/theme.dart';
 
 class SpinPrizeDialog extends StatefulWidget {
   final int coins;
-  const SpinPrizeDialog({required this.coins, Key? key}) : super(key: key);
+  final String asset;
+  const SpinPrizeDialog({required this.asset, required this.coins, Key? key}) : super(key: key);
 
   @override
   State<SpinPrizeDialog> createState() => _SpinPrizeDialogState();
@@ -17,7 +17,8 @@ class _SpinPrizeDialogState extends State<SpinPrizeDialog> with TickerProviderSt
 
   @override
   void initState() {
-    _scaleAnimationController = AnimationController(duration: const Duration(seconds: 1), vsync: this)..forward();
+    _scaleAnimationController =
+        AnimationController(duration: const Duration(seconds: 1), vsync: this)..forward();
     _scaleAnimation = CurvedAnimation(parent: _scaleAnimationController, curve: Curves.bounceOut);
 
     super.initState();
@@ -36,7 +37,7 @@ class _SpinPrizeDialogState extends State<SpinPrizeDialog> with TickerProviderSt
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(coinIc),
+          SvgPicture.asset(widget.asset),
           const SizedBox(height: 20),
           Text(widget.coins.toString(), style: TextStyles.bodyReg24),
           const SizedBox(height: 40),

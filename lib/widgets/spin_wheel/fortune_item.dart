@@ -30,7 +30,7 @@ class CustomFortuneItem extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Center(child: SvgPicture.asset(coinIc, height: 50)),
+                  Center(child: SvgPicture.asset(asset, height: 50)),
                   Positioned.fill(
                     top: 20,
                     left: 10,
@@ -39,9 +39,9 @@ class CustomFortuneItem extends StatelessWidget {
                       child: Container(
                         width: 50,
                         height: 50,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage(asset),
+                            image: AssetImage(star),
                             fit: BoxFit.fill,
                           ),
                         ),

@@ -31,7 +31,7 @@ class SpinWheelScreen extends StatelessWidget {
                 const Flexible(
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 8.0),
-                    child: SpinWheel(),
+                    child: SpinWheel(asset: coinIc, defaultWin: 1000),
                   ),
                 ),
                 const SizedBox(width: 20),
