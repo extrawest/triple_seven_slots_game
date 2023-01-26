@@ -54,7 +54,7 @@ class SpinWheelScreen extends StatelessWidget {
                 onTap: () => Navigator.pop(context),
                 child: SvgPicture.asset(arrowLeftIc, width: 60),
               ),
-            )
+            ),
           ],
         ),
       ),
