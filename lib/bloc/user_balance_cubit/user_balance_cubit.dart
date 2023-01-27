@@ -3,6 +3,7 @@ import 'package:triple_seven_slots_game/bloc/user_balance_cubit/user_balance_sta
 import 'package:triple_seven_slots_game/consts.dart';
 import 'package:triple_seven_slots_game/models/slot_machine_status.dart';
 import 'package:triple_seven_slots_game/repositories/user_data_repository.dart';
+import 'package:triple_seven_slots_game/utils/logger.dart';
 
 class UserBalanceCubit extends Cubit<UserBalanceState> {
   final UserDataRepository _userBalanceRepository;
@@ -16,7 +17,9 @@ class UserBalanceCubit extends Cubit<UserBalanceState> {
       final newBalance = state.userBalance + balanceChange;
       _userBalanceRepository.setBalance(newBalance);
       emit(state.copyWith(userBalance: newBalance));
-    } catch (e) {}
+    } catch (e) {
+      log.severe(e);
+    }
   }
 
   void fetchUserBalance() async {
@@ -25,6 +28,8 @@ class UserBalanceCubit extends Cubit<UserBalanceState> {
       final balance = await _userBalanceRepository.getBalance();
       emit(state.copyWith(
           userBalance: balance ?? initialBalance, balanceStatus: BalanceStatus.loaded));
-    } catch (e) {}
+    } catch (e) {
+      log.severe(e);
+    }
   }
 }

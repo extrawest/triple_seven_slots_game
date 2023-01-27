@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:triple_seven_slots_game/bloc/spin_wheel_cubit/spin_wheel_state.dart';
 import 'package:triple_seven_slots_game/repositories/user_data_repository.dart';
+import 'package:triple_seven_slots_game/utils/logger.dart' as logger;
 
 class SpinWheelCubit extends Cubit<SpinWheelState> {
   final UserDataRepository _userDataRepository;
@@ -42,7 +43,7 @@ class SpinWheelCubit extends Cubit<SpinWheelState> {
         isWheelAvailable: lastSpinDate != null ? _checkIf8HoursPassed(lastSpinDate) : true,
       ));
     } catch (e) {
-      print('');
+      logger.log.severe(e);
     }
   }
 
