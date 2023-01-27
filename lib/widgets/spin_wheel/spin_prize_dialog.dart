@@ -37,10 +37,13 @@ class _SpinPrizeDialogState extends State<SpinPrizeDialog> with TickerProviderSt
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(widget.asset),
-          const SizedBox(height: 20),
-          Text(widget.coins.toString(), style: TextStyles.bodyReg24),
-          const SizedBox(height: 40),
+          const Text('Congratulations!', style: TextStyles.clarendonReg24),
+          const SizedBox(height: 10),
+          const Text('You won!', style: TextStyles.clarendonReg22),
+          const SizedBox(height: 10),
+          SvgPicture.asset(widget.asset, width: 120),
+          const SizedBox(height: 10),
+          Text(widget.coins.toString(), style: TextStyles.clarendonReg18),
         ],
       ),
     );
