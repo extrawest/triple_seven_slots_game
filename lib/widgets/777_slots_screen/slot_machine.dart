@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 import 'package:roll_slot_machine/roll_slot_controller.dart';
 import 'package:triple_seven_slots_game/assets.dart';
 import 'package:triple_seven_slots_game/bloc/slot_machine_bloc/slot_machine_bloc.dart';
@@ -67,7 +66,6 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return MultiBlocListener(
       listeners: [
         BlocListener<SlotMachineBloc, SlotMachineState>(
@@ -82,36 +80,39 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
       child: Stack(
         children: [
           Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Flexible(
                 child: AbsorbPointer(
-                  child: Container(
-                    width: size.width * 0.45,
-                    height: size.height * 0.7,
-                    padding: EdgeInsets.only(
-                      top: size.height * 0.02,
-                      bottom: size.height * 0.1,
-                      left: 50,
-                      right: 50,
-                    ),
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: svg_provider.Svg(boardIc),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        boardIc,
+                        width: 750,
+                        height: 260,
                         fit: BoxFit.cover,
                       ),
-                    ),
-                    child: Column(
-                      children: [
-                        const UserBalance(),
-                        const SizedBox(height: 30),
-                        Flexible(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: _buildRollSlots(),
-                          ),
+                      SizedBox(
+                        width: 300,
+                        height: 250,
+                        child: Column(
+                          children: [
+                            const UserBalance(),
+                            const SizedBox(height: 20),
+                            Flexible(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 24.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: _buildRollSlots(),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),

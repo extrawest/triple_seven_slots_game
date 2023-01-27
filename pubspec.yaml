@@ -48,6 +48,7 @@ dependencies:
   countup: ^0.1.4
   flutter_fortune_wheel: ^1.2.0
   provider: ^6.0.5
+  responsive_framework: ^0.2.0
 
 
 dev_dependencies:
