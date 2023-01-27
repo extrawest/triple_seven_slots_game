@@ -10,6 +10,7 @@ import 'package:triple_seven_slots_game/bloc/user_balance_cubit/user_balance_sta
 import 'package:triple_seven_slots_game/models/slot_machine_status.dart';
 import 'package:triple_seven_slots_game/routes.dart';
 import 'package:triple_seven_slots_game/theme.dart';
+import 'package:triple_seven_slots_game/utils/precaching.dart';
 import 'package:triple_seven_slots_game/widgets/common/background_gradient_scaffold.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -45,7 +46,9 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       child: BlocListener<UserBalanceCubit, UserBalanceState>(
         listener: (context, state) {
           if (state.balanceStatus.isLoaded) {
-            Navigator.pushReplacementNamed(context, mainMenuScreenRoute);
+            Precaching().loadGraphics(context).then((_) {
+              Navigator.pushReplacementNamed(context, mainMenuScreenRoute);
+            });
           }
         },
         child: Column(
@@ -53,8 +56,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text(
-              'Slot Game',
-              style: TextStyles.clarendonReg22,
+              'Triple Seven Slots Game',
+              style: TextStyles.clarendonReg24,
             ),
             const SizedBox(height: 15),
             AnimatedBuilder(

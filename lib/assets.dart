@@ -27,4 +27,3 @@ const coinsLottie = 'assets/lottie/coins_lottie.json';
 const wheelBorder = 'assets/images/wheel_border.png';
 const spinningPointer = 'assets/images/pointer.png';
 const star = 'assets/images/star.png';
-const spinWheelFilledIc = 'assets/images/spin_wheel_filled.svg';
