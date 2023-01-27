@@ -20,20 +20,20 @@
 
 ## Demo
 
-[Slot Machine Game](https://lucky-slot-machine-game.web.app)
+[Triple Seven Slots Game](https://triple-seven-slots.web.app)
 
 ### Installing:
 
 **1) Clone this repo to your folder:**
 
 ```
-git clone https://gitlab.extrawest.com/i-training/flutter/slot_machine_game
+git clone https://gitlab.extrawest.com/i-training/flutter/triple_seven_slots_game.git
 ```
 
 **2. Change current directory to the cloned folder:**
 
 ```
-cd slot_machine_game
+cd triple_seven_slots_game
 ```
 
 **3) Get packages**
@@ -61,26 +61,6 @@ flutter build web
 ```shell
 firebase deploy
 ```
-
-### Integration test
-In order to run integration test you have to:
-1. Use test_driver located at `test_driver/integration_test.dart`.
-2. Add enviromental variables API_KEY(for google maps) and IS_TESTING through --dart-define
-3. (Optional) Use shader warming up to collect shaders to `flutter_01.sksl.json`
-
-So, to run integration test, run the following command:
-
-Without shaders warming up
-```shell
-flutter drive --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart
-```
-
-With shaders warming up
-
-```shell
-flutter drive --profile --cache-sksl --write-sksl-on-exit flutter_01.sksl.json --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart
-```
-<br>
 
 ### To build release version with shaders warming up use the following:
 Android
