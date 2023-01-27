@@ -42,11 +42,13 @@ class MainMenuScreen extends StatelessWidget {
                 GameButton(
                   onPressed: () => Navigator.pushNamed(context, sevenSlotsScreenRoute),
                   asset: seventhIc,
+                  title: '777 Slots',
                 ),
                 const SizedBox(width: 50),
                 GameButton(
                   onPressed: () => Navigator.pushNamed(context, spinWheelScreenRoute),
                   asset: appleIc,
+                  title: 'Spin wheel',
                 ),
               ],
             ),
