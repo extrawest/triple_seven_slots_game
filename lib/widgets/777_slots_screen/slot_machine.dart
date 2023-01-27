@@ -194,6 +194,7 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
   void _showJackpotDialog(BuildContext context, int bet) {
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (_) => Center(
         child: JackpotSpinWheel(bet: bet),
       ),
