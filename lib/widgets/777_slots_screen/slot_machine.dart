@@ -29,7 +29,6 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
   final RollSlotController _firstController = RollSlotController(secondsBeforeStop: 2);
   final RollSlotController _secondController = RollSlotController(secondsBeforeStop: 2);
   final RollSlotController _thirdController = RollSlotController(secondsBeforeStop: 2);
-  final RollSlotController _fourthController = RollSlotController(secondsBeforeStop: 2);
 
   late final AnimationController _confettiLottieController;
   late final AnimationController _goldenLottieController;
@@ -49,8 +48,8 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
 
   void listenSlotController() {
     // fourth controller will always stop after others
-    _fourthController.addListener(() {
-      if (_fourthController.state.isStopped) {
+    _thirdController.addListener(() {
+      if (_thirdController.state.isStopped) {
         Future.delayed(const Duration(seconds: 2)).then((_) {
           context.read<SlotMachineBloc>().add(const StopMachine());
         });
@@ -160,13 +159,6 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
           prizes: prizes,
         ),
       ),
-      Flexible(
-        child: CommonRollSlot(
-          controller: _fourthController,
-          itemExtend: 50,
-          prizes: prizes,
-        ),
-      ),
     ];
   }
 
@@ -177,7 +169,6 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
       _firstController.stop();
       _secondController.stop();
       _thirdController.stop();
-      _fourthController.stop();
     }
   }
 
@@ -231,8 +222,6 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
     _secondController.animateRandomly(index: prizeIndexes[1]);
     await Future.delayed(const Duration(milliseconds: 100));
     _thirdController.animateRandomly(index: prizeIndexes[2]);
-    await Future.delayed(const Duration(milliseconds: 100));
-    _fourthController.animateRandomly(index: prizeIndexes[3]);
   }
 
   void _playLottie(LottieType lottieType) {
@@ -247,7 +236,6 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
     _firstController.dispose();
     _secondController.dispose();
     _thirdController.dispose();
-    _fourthController.dispose();
     _goldenLottieController.dispose();
     _confettiLottieController.dispose();
     _coinsLottieController.dispose();
