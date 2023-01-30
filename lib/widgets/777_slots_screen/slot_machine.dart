@@ -18,6 +18,10 @@ import 'package:triple_seven_slots_game/widgets/common/common_lottie.dart';
 
 const _coinsDurationSeconds = 2;
 
+/// We need to wait last slot animation to be completed before
+/// calling [StopMachine] event in [SlotMachineBloc]
+const _delayBeforeStopSlotMachineBloc = 2;
+
 class SlotMachine extends StatefulWidget {
   const SlotMachine({Key? key}) : super(key: key);
 
@@ -50,7 +54,7 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
     // fourth controller will always stop after others
     _thirdController.addListener(() {
       if (_thirdController.state.isStopped) {
-        Future.delayed(const Duration(seconds: 2)).then((_) {
+        Future.delayed(const Duration(seconds: _delayBeforeStopSlotMachineBloc)).then((_) {
           context.read<SlotMachineBloc>().add(const StopMachine());
         });
       }
