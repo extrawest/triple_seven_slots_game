@@ -6,6 +6,7 @@ import 'package:triple_seven_slots_game/assets.dart';
 import 'package:triple_seven_slots_game/bloc/slot_machine_bloc/slot_machine_bloc.dart';
 import 'package:triple_seven_slots_game/bloc/spin_wheel_cubit/spin_wheel_cubit.dart';
 import 'package:triple_seven_slots_game/bloc/user_balance_cubit/user_balance_cubit.dart';
+import 'package:triple_seven_slots_game/consts.dart';
 import 'package:triple_seven_slots_game/models/lottie_type.dart';
 import 'package:triple_seven_slots_game/models/prize.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/coins_lottie.dart';
@@ -30,9 +31,7 @@ class SlotMachine extends StatefulWidget {
 }
 
 class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin {
-  final RollSlotController _firstController = RollSlotController(secondsBeforeStop: 2);
-  final RollSlotController _secondController = RollSlotController(secondsBeforeStop: 2);
-  final RollSlotController _thirdController = RollSlotController(secondsBeforeStop: 2);
+  late final List<RollSlotController> _slotControllers;
 
   late final AnimationController _confettiLottieController;
   late final AnimationController _goldenLottieController;
@@ -40,6 +39,8 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
 
   @override
   void initState() {
+    _slotControllers =
+        List.generate(numberOfSlots, (index) => RollSlotController(secondsBeforeStop: 2));
     _confettiLottieController =
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
     _goldenLottieController =
@@ -52,8 +53,8 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
 
   void listenSlotController() {
     // fourth controller will always stop after others
-    _thirdController.addListener(() {
-      if (_thirdController.state.isStopped) {
+    _slotControllers.last.addListener(() {
+      if (_slotControllers.last.state.isStopped) {
         Future.delayed(const Duration(seconds: _delayBeforeStopSlotMachineBloc)).then((_) {
           context.read<SlotMachineBloc>().add(const StopMachine());
         });
@@ -141,38 +142,26 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
   }
 
   List<Widget> _buildRollSlots() {
-    return [
-      Flexible(
-        child: CommonRollSlot(
-          controller: _firstController,
-          itemExtend: 50,
-          prizes: prizes,
-        ),
-      ),
-      Flexible(
-        child: CommonRollSlot(
-          controller: _secondController,
-          itemExtend: 50,
-          prizes: prizes,
-        ),
-      ),
-      Flexible(
-        child: CommonRollSlot(
-          controller: _thirdController,
-          itemExtend: 50,
-          prizes: prizes,
-        ),
-      ),
-    ];
+    return _slotControllers
+        .map<Widget>(
+          (slotController) => Flexible(
+            child: CommonRollSlot(
+              controller: slotController,
+              itemExtend: 50,
+              prizes: prizes,
+            ),
+          ),
+        )
+        .toList();
   }
 
   void _slotMachineListener(BuildContext context, SlotMachineState state) {
     if (state.isSpinning) {
       _triggerControllers(state.prizeIndexes);
     } else {
-      _firstController.stop();
-      _secondController.stop();
-      _thirdController.stop();
+      for (final controller in _slotControllers) {
+        controller.stop();
+      }
     }
   }
 
@@ -220,12 +209,11 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
     _playLottie(state.prize!.lottieType);
   }
 
-  void _triggerControllers(List<int> prizeIndexes) async {
-    _firstController.animateRandomly(index: prizeIndexes[0]);
-    await Future.delayed(const Duration(milliseconds: 100));
-    _secondController.animateRandomly(index: prizeIndexes[1]);
-    await Future.delayed(const Duration(milliseconds: 100));
-    _thirdController.animateRandomly(index: prizeIndexes[2]);
+  Stream<void> _triggerControllers(List<int> prizeIndexes) async* {
+    for (int i = 0; i < 3; i++) {
+      _slotControllers[i].animateRandomly(index: prizeIndexes[i]);
+      await Future.delayed(const Duration(milliseconds: 100));
+    }
   }
 
   void _playLottie(LottieType lottieType) {
@@ -237,9 +225,9 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
   }
 
   void disposeControllers() {
-    _firstController.dispose();
-    _secondController.dispose();
-    _thirdController.dispose();
+    for (int i = 0; i < numberOfSlots; i++) {
+      _slotControllers[i].dispose();
+    }
     _goldenLottieController.dispose();
     _confettiLottieController.dispose();
     _coinsLottieController.dispose();

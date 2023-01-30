@@ -177,13 +177,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.2"
-  infinite_carousel:
-    dependency: transitive
-    description:
-      name: infinite_carousel
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
   js:
     dependency: transitive
     description:
@@ -341,9 +334,11 @@ packages:
   roll_slot_machine:
     dependency: "direct main"
     description:
-      path: "../flutter_roll_slot_machine"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "12d4337027e50abcce17aa3de6909222192b0463"
+      url: "https://github.com/extrawest/roll_slot_machine.git"
+    source: git
     version: "1.0.0"
   shared_preferences:
     dependency: "direct main"
