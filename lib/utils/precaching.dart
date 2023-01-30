@@ -11,29 +11,29 @@ class Precaching {
   }
 
   Future<void> _precacheImages(BuildContext context) async {
-    await precacheImage(Image.asset(wheelBorder).image, context);
-    await precacheImage(Image.asset(spinningPointer).image, context);
-    await precacheImage(Image.asset(star).image, context);
-
-    await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, boardIc), null);
-    await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, playButton), null);
-    await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, arrowLeftIc), null);
-    await precachePicture(
-        ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, arrowRightIc), null);
-
-    await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, seventhIc), null);
-    await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, appleIc), null);
-    await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, barIc), null);
-    await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, lemonIc), null);
-    await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, coinIc), null);
-    await precachePicture(
-        ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, watermelonIc), null);
-    await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, crownIc), null);
+    await Future.wait([
+      precacheImage(Image.asset(wheelBorder).image, context),
+      precacheImage(Image.asset(spinningPointer).image, context),
+      precacheImage(Image.asset(star).image, context),
+      precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, boardIc), null),
+      precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, playButton), null),
+      precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, arrowLeftIc), null),
+      precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, arrowRightIc), null),
+      precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, seventhIc), null),
+      precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, appleIc), null),
+      precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, barIc), null),
+      precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, lemonIc), null),
+      precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, coinIc), null),
+      precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, watermelonIc), null),
+      precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, crownIc), null),
+    ]);
   }
 
   Future<void> _loadComposition() async {
-    await AssetLottie(confettiLottie).load();
-    await AssetLottie(goldenConfettiLottie).load();
-    await AssetLottie(coinsLottie).load();
+    await Future.wait([
+      AssetLottie(confettiLottie).load(),
+      AssetLottie(goldenConfettiLottie).load(),
+      AssetLottie(coinsLottie).load(),
+    ]);
   }
 }
