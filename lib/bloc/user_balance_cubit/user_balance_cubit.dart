@@ -14,7 +14,9 @@ class UserBalanceCubit extends Cubit<UserBalanceState> {
 
   void updateUserBalance(int balanceChange) {
     try {
-      final newBalance = state.userBalance + balanceChange;
+      final previousBalance = state.userBalance;
+      emit(state.copyWith(previousBalance: previousBalance));
+      final newBalance = previousBalance + balanceChange;
       _userBalanceRepository.setBalance(newBalance);
       emit(state.copyWith(userBalance: newBalance));
     } catch (e) {

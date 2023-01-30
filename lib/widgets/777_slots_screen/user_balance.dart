@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:triple_seven_slots_game/assets.dart';
-import 'package:triple_seven_slots_game/bloc/slot_machine_bloc/slot_machine_bloc.dart';
 import 'package:triple_seven_slots_game/bloc/user_balance_cubit/user_balance_cubit.dart';
 import 'package:triple_seven_slots_game/bloc/user_balance_cubit/user_balance_state.dart';
 import 'package:triple_seven_slots_game/theme.dart';
@@ -16,7 +15,6 @@ class UserBalance extends StatelessWidget {
     return BlocBuilder<UserBalanceCubit, UserBalanceState>(
       buildWhen: (prev, curr) => prev.userBalance != curr.userBalance,
       builder: (context, state) {
-        final bet = context.read<SlotMachineBloc>().state.currentBet;
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -25,7 +23,7 @@ class UserBalance extends StatelessWidget {
               width: 30,
             ),
             Countup(
-              begin: (state.userBalance + bet).toDouble(),
+              begin: state.previousBalance.toDouble(),
               end: state.userBalance.toDouble(),
               duration: const Duration(milliseconds: 500),
               style: TextStyles.clarendonReg22,
