@@ -35,14 +35,17 @@ class UserDataRepositoryImpl implements UserDataRepository {
   Future<DateTime?> getLastSpinDateTime() async {
     try {
       return await _userBalanceLocalStorage.getLastSpinDateTime();
-    } catch (e) {}
-    return null;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
   void updateLastSpinDateTime() {
     try {
       _userBalanceLocalStorage.updateLastSpinDateTime();
-    } catch (e) {}
+    } catch (e) {
+      rethrow;
+    }
   }
 }

@@ -30,7 +30,9 @@ class SpinWheelCubit extends Cubit<SpinWheelState> {
     try {
       _userDataRepository.updateLastSpinDateTime();
       getLastSpinDate();
-    } catch (e) {}
+    } catch (e) {
+      logger.log.severe(e);
+    }
   }
 
   void getLastSpinDate() async {

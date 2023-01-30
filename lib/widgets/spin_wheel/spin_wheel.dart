@@ -71,7 +71,6 @@ class SpinWheel extends StatelessWidget {
           coins: prize,
         ),
       );
-      final previousBalance = context.read<UserBalanceCubit>().state.userBalance;
       context.read<UserBalanceCubit>().updateUserBalance(prize);
     }
   }
