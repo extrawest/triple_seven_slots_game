@@ -25,7 +25,7 @@ class UserBalance extends StatelessWidget {
               width: 30,
             ),
             Countup(
-              begin: (state.userBalance - bet).toDouble(),
+              begin: (state.userBalance + bet).toDouble(),
               end: state.userBalance.toDouble(),
               duration: const Duration(milliseconds: 500),
               style: TextStyles.clarendonReg22,
