@@ -29,8 +29,8 @@ class App extends StatelessWidget {
         title: 'Triple Seven Slots Game',
         builder: (context, child) =>
             ResponsiveWrapper.builder(child, defaultScale: true, breakpoints: [
-          const ResponsiveBreakpoint.autoScale(800, name: MOBILE),
-          const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+          const ResponsiveBreakpoint.autoScale(500, name: MOBILE),
+          const ResponsiveBreakpoint.autoScale(600, name: TABLET),
           const ResponsiveBreakpoint.autoScale(800, name: DESKTOP),
         ]),
         routes: routes,
