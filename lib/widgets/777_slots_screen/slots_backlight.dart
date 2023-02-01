@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:triple_seven_slots_game/bloc/slot_machine_bloc/slot_machine_bloc.dart';
 import 'package:triple_seven_slots_game/consts.dart';
 import 'package:triple_seven_slots_game/theme.dart';
 
@@ -10,36 +12,55 @@ class SlotsBackLight extends StatefulWidget {
 }
 
 class _SlotsBackLightState extends State<SlotsBackLight> with TickerProviderStateMixin {
-  late final List<AnimationController> _animationControllers;
+  late final List<List<AnimationController>> _animationControllers;
 
   @override
   void initState() {
-    _animationControllers = List.generate(numberOfSlots * 3,
-        (_) => AnimationController(vsync: this, duration: const Duration(seconds: 1))..forward());
+    _animationControllers = List.generate(
+        numberOfItemsInSlot,
+        (_) => List.generate(
+              numberOfSlots,
+              (_) => AnimationController(vsync: this, duration: const Duration(milliseconds: 600)),
+            ));
     super.initState();
   }
 
   @override
   void dispose() {
-    for (final controller in _animationControllers) {
-      controller.dispose();
+    for (final controllers in _animationControllers) {
+      for (final controller in controllers) {
+        controller.dispose();
+      }
     }
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: List.generate(
-          3,
-          (columnIndex) => Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List<Widget>.generate(
-                    3,
-                    (rowIndex) =>
-                        _gradientBacklight(_animationControllers[rowIndex * columnIndex])),
-              )),
+    return BlocListener<SlotMachineBloc, SlotMachineState>(
+      listenWhen: (prev, curr) => prev.isSpinning != curr.isSpinning,
+      listener: _slotMachineListener,
+      child: Column(
+        children: List.generate(
+            3,
+            (columnIndex) => Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List<Widget>.generate(
+                      3,
+                      (rowIndex) =>
+                          _gradientBacklight(_animationControllers[columnIndex][rowIndex])),
+                )),
+      ),
     );
+  }
+
+  void _slotMachineListener(BuildContext context, SlotMachineState state) {
+    if (!state.isSpinning && state.prize != null) {
+      final winSlotsControllers = _animationControllers[state.winRow!];
+      for (final controller in winSlotsControllers) {
+        controller.forward().then((_) => controller.reset());
+      }
+    }
   }
 
   Widget _gradientBacklight(AnimationController animationController) {
