@@ -35,7 +35,7 @@ class SpinWheelCubit extends Cubit<SpinWheelState> {
     }
   }
 
-  void getLastSpinDate() async {
+  Future<void> getLastSpinDate() async {
     try {
       final lastSpinDate = await _userDataRepository.getLastSpinDateTime();
       if (lastSpinDate != null && !_checkIf8HoursPassed(lastSpinDate)) {
@@ -53,7 +53,7 @@ class SpinWheelCubit extends Cubit<SpinWheelState> {
     _spinWheelLockTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       //TODO: CHANGE Duration to 8 hours
       final unlockDate = lastSpinDate.add(const Duration(seconds: 20));
-      final timeLeftDuration = -(DateTime.now().difference(unlockDate));
+      final timeLeftDuration = -DateTime.now().difference(unlockDate);
       if (timeLeftDuration.inSeconds == 0) {
         _spinWheelLockTimer.cancel();
         emit(state.copyWith(timeLeft: '00:00:00', isWheelAvailable: true));
@@ -65,10 +65,10 @@ class SpinWheelCubit extends Cubit<SpinWheelState> {
   }
 
   String _formatDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, "0");
-    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    final String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    return '${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds';
   }
 
   void updateRotationCount() {
