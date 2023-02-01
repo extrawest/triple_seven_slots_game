@@ -10,4 +10,6 @@ const initialBalance = 100000;
 
 const numberOfSlots = 3;
 
+const ad = 3;
+
 const jackPotMultiplier = 10;
