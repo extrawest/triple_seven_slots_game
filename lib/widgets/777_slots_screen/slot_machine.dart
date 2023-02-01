@@ -97,25 +97,7 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
                         height: 260,
                         fit: BoxFit.cover,
                       ),
-                      SizedBox(
-                        width: 300,
-                        height: 250,
-                        child: Column(
-                          children: [
-                            const UserBalance(),
-                            const SizedBox(height: 20),
-                            Flexible(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 24.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: _buildRollSlots(),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      _buildSlots(),
                     ],
                   ),
                 ),
@@ -124,6 +106,28 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
             ],
           ),
           CoinsLottie(animationController: _coinsLottieController),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSlots() {
+    return SizedBox(
+      width: 300,
+      height: 250,
+      child: Column(
+        children: [
+          const UserBalance(),
+          const SizedBox(height: 20),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: _buildRollSlots(),
+              ),
+            ),
+          ),
         ],
       ),
     );
