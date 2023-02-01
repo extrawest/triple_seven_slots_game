@@ -14,6 +14,7 @@ import 'package:triple_seven_slots_game/widgets/777_slots_screen/common_roll_slo
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/control_panel.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/jackpot_spin_wheel.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/prize_dialog.dart';
+import 'package:triple_seven_slots_game/widgets/777_slots_screen/slots_backlight.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/user_balance.dart';
 import 'package:triple_seven_slots_game/widgets/common/common_lottie.dart';
 
@@ -122,9 +123,15 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
           Flexible(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 24.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: _buildRollSlots(),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: _buildRollSlots(),
+                  ),
+                  const SlotsBackLight(),
+                ],
               ),
             ),
           ),
