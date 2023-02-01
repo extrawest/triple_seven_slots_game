@@ -177,7 +177,7 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
   }
 
   void _prizeListener(BuildContext context, SlotMachineState state) {
-    if (state.isSpinning == false && state.prize != null) {
+    if (!state.isSpinning && state.prize != null) {
       if (state.prize!.prizeType.isSeventh) {
         context.read<SpinWheelCubit>().setIsJackpotWheelComplete(false);
         _showJackpotDialog(context, state.currentBet);
@@ -220,9 +220,13 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
     _playLottie(state.prize!.lottieType);
   }
 
-  Stream<void> _triggerControllers(List<int> prizeIndexes) async* {
+  Stream<void> _triggerControllers(List<List<int>> prizeIndexes) async* {
     for (int i = 0; i < 3; i++) {
-      _slotControllers[i].animateRandomly(index: prizeIndexes[i]);
+      _slotControllers[i].animateRandomly(
+        topIndex: prizeIndexes[0][i],
+        centerIndex: prizeIndexes[1][i],
+        bottomIndex: prizeIndexes[2][i],
+      );
       await Future.delayed(const Duration(milliseconds: 100));
     }
   }
