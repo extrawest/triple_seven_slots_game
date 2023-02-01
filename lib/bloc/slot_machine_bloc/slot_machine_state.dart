@@ -2,8 +2,10 @@ part of 'slot_machine_bloc.dart';
 
 class SlotMachineState extends Equatable {
   final bool isSpinning;
-  final List<int> prizeIndexes;
+  final List<List<int>> prizeIndexes;
   final int? winPrizeIndex;
+  final int? winRow;
+
   final Prize? prize;
 
   final SlotMachineStatus slotMachineStatus;
@@ -16,6 +18,7 @@ class SlotMachineState extends Equatable {
     this.prizeIndexes = const [],
     this.isSpinning = false,
     this.winPrizeIndex,
+    this.winRow,
     this.prize,
     this.currentBet = defaultBet,
     this.slotMachineStatus = SlotMachineStatus.initial,
@@ -24,8 +27,9 @@ class SlotMachineState extends Equatable {
 
   SlotMachineState copyWith({
     bool? isSpinning,
-    List<int>? prizeIndexes,
+    List<List<int>>? prizeIndexes,
     int? winPrizeIndex,
+    int? winRow,
     Prize? prize,
     bool keepPrize = true,
     int? currentBet,
@@ -36,6 +40,7 @@ class SlotMachineState extends Equatable {
         isSpinning: isSpinning ?? this.isSpinning,
         prizeIndexes: prizeIndexes ?? this.prizeIndexes,
         winPrizeIndex: winPrizeIndex ?? this.winPrizeIndex,
+        winRow: winRow ?? this.winRow,
         prize: keepPrize ? (prize ?? this.prize) : null,
         currentBet: currentBet ?? this.currentBet,
         previousBet: previousBet ?? this.currentBet,
@@ -47,6 +52,7 @@ class SlotMachineState extends Equatable {
         isSpinning,
         prizeIndexes,
         winPrizeIndex,
+        winRow,
         prize,
         currentBet,
         slotMachineStatus,

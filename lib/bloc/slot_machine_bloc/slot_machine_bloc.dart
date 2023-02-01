@@ -21,12 +21,14 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
   void _onSpinMachineEvent(SpinMachineEvent event, Emitter<SlotMachineState> emit) {
     emit(state.copyWith(slotMachineStatus: SlotMachineStatus.loading));
     final prizesIndexes = generatePrizes();
-    final prizeIndex = generatePrizeIndex(prizesIndexes);
+    final prizeRow = generatePrizeIndex(prizesIndexes);
 
-    if (prizeIndex != null) {
+    if (prizeRow != null) {
+      final prizeIndex = prizesIndexes[prizeRow][0];
       emit(state.copyWith(
         prizeIndexes: prizesIndexes,
         winPrizeIndex: prizeIndex,
+        winRow: prizeRow,
         isSpinning: true,
         prize: SlotMachineRepository.prizes[prizeIndex],
       ));
@@ -40,18 +42,27 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
     emit(state.copyWith(isSpinning: false));
   }
 
-  List<int> generatePrizes() {
-    return List<int>.generate(
-        numberOfSlots, (_) => Random().nextInt(SlotMachineRepository.prizes.length));
+  List<List<int>> generatePrizes() {
+    return List<List<int>>.generate(
+      numberOfSlots,
+      (_) => List<int>.generate(
+          numberOfItemsInSlot, (_) => Random().nextInt(SlotMachineRepository.prizes.length)),
+    );
   }
 
-  int? generatePrizeIndex(List<int> prizeIndexes) {
-    for (int i = 0; i < prizeIndexes.length; i++) {
-      for (int k = i + 1; k < prizeIndexes.length; k++) {
-        if (prizeIndexes[i] == prizeIndexes[k]) {
-          return prizeIndexes[i];
-        }
+  int? generatePrizeIndex(List<List<int>> prizeIndexes) {
+    for (int row = 0; row < prizeIndexes.length; row++) {
+      final rowPrizeIndexes = prizeIndexes[row];
+      if (rowPrizeIndexes.every((element) => element == rowPrizeIndexes[0])) {
+        return row;
       }
+      // for (int i = 0; i < rowPrizeIndexes.length; i++) {
+      //   for (int k = i + 1; k < rowPrizeIndexes.length; k++) {
+      //     if (rowPrizeIndexes[i] == rowPrizeIndexes[k]) {
+      //       return rowPrizeIndexes[i];
+      //     }
+      //   }
+      // }
     }
     return null;
   }
