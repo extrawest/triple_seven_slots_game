@@ -20,11 +20,7 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
 
   void _onSpinMachineEvent(SpinMachineEvent event, Emitter<SlotMachineState> emit) {
     emit(state.copyWith(slotMachineStatus: SlotMachineStatus.loading));
-    final prizesIndexes = [
-      [0, 1, 0],
-      [1, 2, 2],
-      [4, 2, 1]
-    ]; //generatePrizes();
+    final prizesIndexes = generatePrizes();
     final prizeRow = generatePrizeIndex(prizesIndexes);
 
     if (prizeRow != null) {
