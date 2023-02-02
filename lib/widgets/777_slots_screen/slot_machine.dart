@@ -24,6 +24,8 @@ const _coinsDurationSeconds = 2;
 /// calling [StopMachine] event in [SlotMachineBloc]
 const _delayBeforeStopSlotMachineBloc = 2;
 
+const _delayBeforeShowPrizeDialog = 1;
+
 class SlotMachine extends StatefulWidget {
   const SlotMachine({Key? key}) : super(key: key);
 
@@ -56,7 +58,7 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
     // fourth controller will always stop after others
     _slotControllers.last.addListener(() {
       if (_slotControllers.last.state.isStopped) {
-        Future.delayed(const Duration(seconds: _delayBeforeStopSlotMachineBloc)).then((_) {
+        Future.delayed(const Duration(seconds: _delayBeforeStopSlotMachineBloc), () {
           context.read<SlotMachineBloc>().add(const StopMachine());
         });
       }
@@ -178,12 +180,14 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
 
   void _prizeListener(BuildContext context, SlotMachineState state) {
     if (!state.isSpinning && state.prize != null) {
-      if (state.prize!.prizeType.isSeventh) {
-        context.read<SpinWheelCubit>().setIsJackpotWheelComplete(false);
-        _showJackpotDialog(context, state.currentBet);
-      } else {
-        _showPrizeDialog(context, state);
-      }
+      Future.delayed(const Duration(seconds: _delayBeforeShowPrizeDialog), () {
+        if (state.prize!.prizeType.isSeventh) {
+          context.read<SpinWheelCubit>().setIsJackpotWheelComplete(false);
+          _showJackpotDialog(context, state.currentBet);
+        } else {
+          _showPrizeDialog(context, state);
+        }
+      });
     }
   }
 
@@ -220,7 +224,7 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
     _playLottie(state.prize!.lottieType);
   }
 
-  Stream<void> _triggerControllers(List<List<int>> prizeIndexes) async* {
+  Future<void> _triggerControllers(List<List<int>> prizeIndexes) async {
     for (int i = 0; i < 3; i++) {
       _slotControllers[i].animateRandomly(
         topIndex: prizeIndexes[0][i],

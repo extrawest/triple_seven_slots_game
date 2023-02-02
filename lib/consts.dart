@@ -8,6 +8,8 @@ const differenceBet = 1000;
 
 const initialBalance = 100000;
 
+const numberOfItemsInSlot = 3;
+
 const numberOfSlots = 3;
 
 const ad = 3;
