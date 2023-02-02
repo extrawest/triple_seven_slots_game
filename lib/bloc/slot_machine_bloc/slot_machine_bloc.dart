@@ -21,13 +21,14 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
   void _onSpinMachineEvent(SpinMachineEvent event, Emitter<SlotMachineState> emit) {
     emit(state.copyWith(slotMachineStatus: SlotMachineStatus.loading));
     final prizesIndexes = generatePrizes();
-    final prizeRow = _checkRows(prizesIndexes);
 
     final List<int> prize;
     final prizeRowIndex = _checkRows(prizesIndexes);
+    bool isDiagonal = false;
 
     if (prizeRowIndex.isEmpty) {
       prize = _checkDiagonals(prizesIndexes);
+      isDiagonal = true;
     } else {
       prize = [...prizeRowIndex];
     }
@@ -37,6 +38,7 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
         prizeIndexes: prizesIndexes,
         winPrizeIndex: prize.last,
         winRow: prize.first,
+        isDiagonal: isDiagonal,
         isSpinning: true,
         prize: SlotMachineRepository.prizes[prize.last],
       ));
