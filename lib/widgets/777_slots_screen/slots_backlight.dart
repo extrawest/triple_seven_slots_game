@@ -59,13 +59,28 @@ class _SlotsBackLightState extends State<SlotsBackLight> with TickerProviderStat
   void _slotMachineListener(BuildContext context, SlotMachineState state) {
     if (!state.isSpinning && state.prize != null) {
       _currentWinRow = state.winRow!;
-      final winSlotsControllers = _animationControllers[_currentWinRow];
-      for (final controller in winSlotsControllers) {
-        controller.forward();
+      if (state.isDiagonal) {
+        for (int i = 0; i < numberOfSlots; i++) {
+          // first diagonal
+          if (state.winRow == 0) {
+            _animationControllers[i][i].forward();
+          } else {
+            _animationControllers[(numberOfSlots - 1) - i][i].forward();
+          }
+        }
+      } else {
+        final winSlotsControllers = _animationControllers[_currentWinRow];
+        for (final controller in winSlotsControllers) {
+          controller.forward();
+        }
       }
     } else if (state.isSpinning) {
-      for (final controller in _animationControllers[_currentWinRow]) {
-        controller.reverse();
+      for (final controllers in _animationControllers) {
+        for (final controller in controllers) {
+          if (controller.isCompleted) {
+            controller.reverse();
+          }
+        }
       }
     }
   }
