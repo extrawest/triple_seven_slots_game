@@ -14,6 +14,8 @@ class SlotsBackLight extends StatefulWidget {
 class _SlotsBackLightState extends State<SlotsBackLight> with TickerProviderStateMixin {
   late final List<List<AnimationController>> _animationControllers;
 
+  int _currentWinRow = 0;
+
   @override
   void initState() {
     _animationControllers = List.generate(
@@ -56,9 +58,14 @@ class _SlotsBackLightState extends State<SlotsBackLight> with TickerProviderStat
 
   void _slotMachineListener(BuildContext context, SlotMachineState state) {
     if (!state.isSpinning && state.prize != null) {
-      final winSlotsControllers = _animationControllers[state.winRow!];
+      _currentWinRow = state.winRow!;
+      final winSlotsControllers = _animationControllers[_currentWinRow];
       for (final controller in winSlotsControllers) {
-        controller.forward().then((_) => controller.reset());
+        controller.forward();
+      }
+    } else if (state.isSpinning) {
+      for (final controller in _animationControllers[_currentWinRow]) {
+        controller.reverse();
       }
     }
   }
@@ -67,12 +74,18 @@ class _SlotsBackLightState extends State<SlotsBackLight> with TickerProviderStat
     return FadeTransition(
       opacity: animationController,
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 24.0),
-        width: 50,
-        height: 50,
+        margin: const EdgeInsets.symmetric(horizontal: 26.0),
+        width: 45,
+        height: 45,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.0),
-          border: Border.all(color: darkPurple1),
+          boxShadow: const [
+            BoxShadow(
+              color: lightOrange2,
+              spreadRadius: -1.0,
+              blurRadius: 35.0,
+            )
+          ],
         ),
       ),
     );
