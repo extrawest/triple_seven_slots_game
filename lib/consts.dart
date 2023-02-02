@@ -15,3 +15,5 @@ const numberOfSlots = 3;
 const ad = 3;
 
 const jackPotMultiplier = 10;
+
+const jackpotIndex = 0;

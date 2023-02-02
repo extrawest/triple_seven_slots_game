@@ -21,14 +21,19 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
   void _onSpinMachineEvent(SpinMachineEvent event, Emitter<SlotMachineState> emit) {
     emit(state.copyWith(slotMachineStatus: SlotMachineStatus.loading));
     final prizesIndexes = [
-      [0, 1, 1],
-      [3, 3, 3],
+      [0, 1, 0],
+      [1, 2, 2],
       [4, 2, 1]
     ]; //generatePrizes();
     final prizeRow = generatePrizeIndex(prizesIndexes);
 
     if (prizeRow != null) {
-      final prizeIndex = prizesIndexes[prizeRow][0];
+      final int prizeIndex;
+      if (prizesIndexes[prizeRow][0] != jackpotIndex) {
+        prizeIndex = getPrizeIndex(prizesIndexes[prizeRow])!;
+      } else {
+        prizeIndex = prizesIndexes[prizeRow][0];
+      }
       emit(state.copyWith(
         prizeIndexes: prizesIndexes,
         winPrizeIndex: prizeIndex,
@@ -57,16 +62,28 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
   int? generatePrizeIndex(List<List<int>> prizeIndexes) {
     for (int row = 0; row < prizeIndexes.length; row++) {
       final rowPrizeIndexes = prizeIndexes[row];
-      if (rowPrizeIndexes.every((element) => element == rowPrizeIndexes[0])) {
+      if (rowPrizeIndexes[0] == jackpotIndex &&
+          rowPrizeIndexes.every((element) => element == rowPrizeIndexes[0])) {
         return row;
       }
-      // for (int i = 0; i < rowPrizeIndexes.length; i++) {
-      //   for (int k = i + 1; k < rowPrizeIndexes.length; k++) {
-      //     if (rowPrizeIndexes[i] == rowPrizeIndexes[k]) {
-      //       return rowPrizeIndexes[i];
-      //     }
-      //   }
-      // }
+      for (int i = 0; i < rowPrizeIndexes.length; i++) {
+        for (int k = i + 1; k < rowPrizeIndexes.length; k++) {
+          if (rowPrizeIndexes[i] != jackpotIndex && rowPrizeIndexes[i] == rowPrizeIndexes[k]) {
+            return row;
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  int? getPrizeIndex(List<int> prizeRow) {
+    for (int i = 0; i < prizeRow.length; i++) {
+      for (int k = i + 1; k < prizeRow.length; k++) {
+        if (prizeRow[i] == prizeRow[k]) {
+          return prizeRow[k];
+        }
+      }
     }
     return null;
   }
