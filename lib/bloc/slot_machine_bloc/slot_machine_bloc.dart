@@ -21,7 +21,7 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
   void _onSpinMachineEvent(SpinMachineEvent event, Emitter<SlotMachineState> emit) {
     emit(state.copyWith(slotMachineStatus: SlotMachineStatus.loading));
     final prizesIndexes = generatePrizes();
-    final prizeRow = generatePrizeIndex(prizesIndexes);
+    final prizeRow = _checkRows(prizesIndexes);
 
     if (prizeRow != null) {
       final int prizeIndex;
@@ -55,7 +55,7 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
     );
   }
 
-  int? generatePrizeIndex(List<List<int>> prizeIndexes) {
+  int? _checkRows(List<List<int>> prizeIndexes) {
     for (int row = 0; row < prizeIndexes.length; row++) {
       final rowPrizeIndexes = prizeIndexes[row];
       if (rowPrizeIndexes[0] == jackpotIndex &&
