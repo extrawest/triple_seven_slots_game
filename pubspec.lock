@@ -343,7 +343,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: db526676198db0d5db2180b693c4c8f7819c0209
+      resolved-ref: a902c8b6a84005c3a775680e0e47e52f29584cd5
       url: "https://github.com/extrawest/roll_slot_machine.git"
     source: git
     version: "1.0.0"
