@@ -13,6 +13,7 @@ import 'package:triple_seven_slots_game/widgets/spin_wheel/spin_wheel.dart';
 
 class JackpotSpinWheel extends StatelessWidget {
   final int bet;
+
   const JackpotSpinWheel({required this.bet, Key? key}) : super(key: key);
 
   @override
@@ -29,18 +30,19 @@ class JackpotSpinWheel extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            state.isJackpotWheelSpinComplete
-                ? CommonButton(onTap: () => Navigator.pop(context), title: 'Back')
-                : CommonButton(
-                    onTap: () {
-                      final random = Fortune.randomInt(0, 6);
-                      context.read<StreamController<int>>().sink.add(random);
-                      context.read<SpinWheelCubit>().setIsSpinning(true);
-                      context.read<SpinWheelCubit>().setPrize(random);
-                      context.read<SpinWheelCubit>().setIsJackpotWheelComplete(true);
-                    },
-                    title: 'Spin',
-                  ),
+            if (state.isJackpotWheelSpinComplete)
+              CommonButton(onTap: () => Navigator.pop(context), title: 'Back')
+            else
+              CommonButton(
+                onTap: () {
+                  final random = Fortune.randomInt(0, 6);
+                  context.read<StreamController<int>>().sink.add(random);
+                  context.read<SpinWheelCubit>().setIsSpinning(true);
+                  context.read<SpinWheelCubit>().setPrize(random);
+                  context.read<SpinWheelCubit>().setIsJackpotWheelComplete(true);
+                },
+                title: 'Spin',
+              ),
           ],
         ),
       ),
