@@ -27,29 +27,29 @@ class SpinWheelScreen extends StatelessWidget {
       builder: (context, child) => GradientBackgroundScaffold(
         child: Stack(
           children: [
-            Column(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(wheelTitleIc, width: 200),
+                const Flexible(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                    child: SpinWheel(asset: coinIc, defaultWin: _defaultWin),
+                  ),
+                ),
+                const SizedBox(width: 20),
                 Flexible(
-                  child: Row(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 8.0),
-                          child: SpinWheel(asset: coinIc, defaultWin: _defaultWin),
-                        ),
-                      ),
-                      const SizedBox(width: 20),
-                      Flexible(
-                        child: BlocBuilder<SpinWheelCubit, SpinWheelState>(
-                          builder: (context, state) => state.isWheelAvailable
-                              ? const SpinButton()
-                              : Text(
-                                  state.timeLeft,
-                                  style: TextStyles.clarendonReg22,
-                                ),
-                        ),
+                      Image.asset(wheelTitleIc, width: 300),
+                      const SizedBox(height: 40),
+                      BlocBuilder<SpinWheelCubit, SpinWheelState>(
+                        builder: (context, state) => state.isWheelAvailable
+                            ? const SpinButton()
+                            : Text(
+                                state.timeLeft,
+                                style: TextStyles.clarendonReg22,
+                              ),
                       ),
                     ],
                   ),

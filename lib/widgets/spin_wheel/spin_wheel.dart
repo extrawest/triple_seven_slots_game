@@ -41,41 +41,44 @@ class _SpinWheelState extends State<SpinWheel> with SingleTickerProviderStateMix
     return BlocListener<SpinWheelCubit, SpinWheelState>(
       listenWhen: (prev, curr) => prev.isSpinning && !curr.isSpinning,
       listener: _spinWheelListener,
-      child: AbsorbPointer(
-        child: Stack(
-          children: [
-            FortuneWheel(
-              animateFirst: false,
-              selected: context.read<StreamController<int>>().stream,
-              rotationCount: 10,
-              indicators: const [],
-              items: List.generate(
-                7,
-                (index) => FortuneItem(
-                  child: CustomFortuneItem(multiplier: index + 1, asset: widget.asset),
-                  style: FortuneItemStyle(
-                    color: index % 2 == 0 ? orange2 : orange1,
-                    borderColor: darkOrange,
+      child: SizedBox(
+        height: 400,
+        child: AbsorbPointer(
+          child: Stack(
+            children: [
+              FortuneWheel(
+                animateFirst: false,
+                selected: context.read<StreamController<int>>().stream,
+                rotationCount: 10,
+                indicators: const [],
+                items: List.generate(
+                  7,
+                  (index) => FortuneItem(
+                    child: CustomFortuneItem(multiplier: index + 1, asset: widget.asset),
+                    style: FortuneItemStyle(
+                      color: index % 2 == 0 ? orange2 : orange1,
+                      borderColor: darkOrange,
+                    ),
+                  ),
+                ),
+                onAnimationEnd: () {
+                  context.read<SpinWheelCubit>().setIsSpinning(false);
+                  context.read<SpinWheelCubit>().updateRotationCount();
+                },
+              ),
+              Align(alignment: Alignment.center, child: Image.asset(wheelBorder)),
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Image.asset(
+                    spinningPointer,
+                    width: 50,
+                    height: 50,
                   ),
                 ),
               ),
-              onAnimationEnd: () {
-                context.read<SpinWheelCubit>().setIsSpinning(false);
-                context.read<SpinWheelCubit>().updateRotationCount();
-              },
-            ),
-            Align(alignment: Alignment.center, child: Image.asset(wheelBorder)),
-            Positioned.fill(
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Image.asset(
-                  spinningPointer,
-                  width: 50,
-                  height: 50,
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
