@@ -15,6 +15,7 @@ class Precaching {
       precacheImage(Image.asset(wheelBorder).image, context),
       precacheImage(Image.asset(spinningPointer).image, context),
       precacheImage(Image.asset(star).image, context),
+      precacheImage(Image.asset(wheelTitleIc).image, context),
       precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, boardIc), null),
       precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, playButton), null),
       precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, arrowLeftIc), null),

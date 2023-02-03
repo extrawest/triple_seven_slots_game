@@ -13,10 +13,12 @@ import 'package:triple_seven_slots_game/widgets/spin_wheel/spin_button.dart';
 import 'package:triple_seven_slots_game/widgets/spin_wheel/spin_wheel.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-class SpinWheelScreen extends StatelessWidget {
-  final StreamController<int> _fortuneWheelNotifier = StreamController<int>();
+const _defaultWin = 1000;
 
+class SpinWheelScreen extends StatelessWidget {
   SpinWheelScreen({Key? key}) : super(key: key);
+
+  final StreamController<int> _fortuneWheelNotifier = StreamController<int>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,24 +27,31 @@ class SpinWheelScreen extends StatelessWidget {
       builder: (context, child) => GradientBackgroundScaffold(
         child: Stack(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
               children: [
-                const Flexible(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.0),
-                    child: SpinWheel(asset: coinIc, defaultWin: 1000),
-                  ),
-                ),
-                const SizedBox(width: 20),
+                Image.asset(wheelTitleIc, width: 200),
                 Flexible(
-                  child: BlocBuilder<SpinWheelCubit, SpinWheelState>(
-                    builder: (context, state) => state.isWheelAvailable
-                        ? const SpinButton()
-                        : Text(
-                            state.timeLeft,
-                            style: TextStyles.clarendonReg22,
-                          ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Flexible(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 8.0),
+                          child: SpinWheel(asset: coinIc, defaultWin: _defaultWin),
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      Flexible(
+                        child: BlocBuilder<SpinWheelCubit, SpinWheelState>(
+                          builder: (context, state) => state.isWheelAvailable
+                              ? const SpinButton()
+                              : Text(
+                                  state.timeLeft,
+                                  style: TextStyles.clarendonReg22,
+                                ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
