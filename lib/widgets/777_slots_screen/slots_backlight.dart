@@ -48,9 +48,7 @@ class _SlotsBackLightState extends State<SlotsBackLight> with TickerProviderStat
             (columnIndex) => Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List<Widget>.generate(
-                      3,
-                      (rowIndex) =>
-                          _gradientBacklight(_animationControllers[columnIndex][rowIndex])),
+                      3, (rowIndex) => _backlight(_animationControllers[columnIndex][rowIndex])),
                 )),
       ),
     );
@@ -85,7 +83,7 @@ class _SlotsBackLightState extends State<SlotsBackLight> with TickerProviderStat
     }
   }
 
-  Widget _gradientBacklight(AnimationController animationController) {
+  Widget _backlight(AnimationController animationController) {
     return FadeTransition(
       opacity: animationController,
       child: Container(
@@ -96,9 +94,9 @@ class _SlotsBackLightState extends State<SlotsBackLight> with TickerProviderStat
           borderRadius: BorderRadius.circular(16.0),
           boxShadow: const [
             BoxShadow(
-              color: lightOrange2,
-              spreadRadius: -1.0,
-              blurRadius: 35.0,
+              color: lightOrange,
+              spreadRadius: 10,
+              blurRadius: 30.0,
             )
           ],
         ),
