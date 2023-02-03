@@ -24,7 +24,7 @@ class UserBalanceCubit extends Cubit<UserBalanceState> {
     }
   }
 
-  void fetchUserBalance() async {
+  Future<void> fetchUserBalance() async {
     try {
       emit(state.copyWith(balanceStatus: BalanceStatus.loading));
       final balance = await _userBalanceRepository.getBalance();
