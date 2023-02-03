@@ -13,9 +13,9 @@ import 'package:triple_seven_slots_game/widgets/spin_wheel/fortune_item.dart';
 import 'package:triple_seven_slots_game/widgets/spin_wheel/spin_prize_dialog.dart';
 
 class SpinWheel extends StatefulWidget {
-  final String asset;
+  final List<String> assets;
   final int defaultWin;
-  const SpinWheel({required this.defaultWin, required this.asset, Key? key}) : super(key: key);
+  const SpinWheel({required this.defaultWin, required this.assets, Key? key}) : super(key: key);
 
   @override
   State<SpinWheel> createState() => _SpinWheelState();
@@ -54,7 +54,7 @@ class _SpinWheelState extends State<SpinWheel> with SingleTickerProviderStateMix
                 items: List.generate(
                   7,
                   (index) => FortuneItem(
-                    child: CustomFortuneItem(multiplier: index + 1, asset: widget.asset),
+                    child: CustomFortuneItem(multiplier: index + 1, asset: widget.assets[index]),
                     style: FortuneItemStyle(
                       color: index % 2 == 0 ? orange2 : orange1,
                       borderColor: darkOrange,
@@ -93,7 +93,7 @@ class _SpinWheelState extends State<SpinWheel> with SingleTickerProviderStateMix
           alignment: Alignment.center,
           children: [
             SpinPrizeDialog(
-              asset: widget.asset,
+              asset: widget.assets[state.currentPrizeMultiplier!],
               coins: prize,
             ),
             CommonLottie(lottieController: _lottieController, lottie: confettiLottie),

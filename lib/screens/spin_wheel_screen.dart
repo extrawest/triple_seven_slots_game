@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:triple_seven_slots_game/assets.dart';
 import 'package:triple_seven_slots_game/bloc/spin_wheel_cubit/spin_wheel_cubit.dart';
 import 'package:triple_seven_slots_game/bloc/spin_wheel_cubit/spin_wheel_state.dart';
+import 'package:triple_seven_slots_game/repositories/spin_wheel_repository.dart';
 import 'package:triple_seven_slots_game/theme.dart';
 import 'package:triple_seven_slots_game/widgets/common/background_gradient_scaffold.dart';
 import 'package:triple_seven_slots_game/widgets/spin_wheel/spin_button.dart';
@@ -33,7 +34,8 @@ class SpinWheelScreen extends StatelessWidget {
                 const Flexible(
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 8.0),
-                    child: SpinWheel(asset: coinIc, defaultWin: _defaultWin),
+                    child:
+                        SpinWheel(assets: SpinWheelRepository.spinPrizes, defaultWin: _defaultWin),
                   ),
                 ),
                 const SizedBox(width: 20),

@@ -30,7 +30,11 @@ class CustomFortuneItem extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Center(child: SvgPicture.asset(asset, height: 50)),
+                  Center(
+                    child: asset.split('.')[1] == 'svg'
+                        ? SvgPicture.asset(asset, height: 50)
+                        : Image.asset(asset, height: 50),
+                  ),
                   Positioned.fill(
                     top: 20,
                     left: 10,

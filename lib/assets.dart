@@ -28,3 +28,9 @@ const wheelBorder = 'assets/images/wheel_border.png';
 const spinningPointer = 'assets/images/pointer.png';
 const star = 'assets/images/star.png';
 const wheelTitleIc = 'assets/images/fortune_wheel_title.png';
+
+const heartIc = 'assets/images/heart.png';
+const crownWheelIc = 'assets/images/crown.png';
+const dollarIc = 'assets/images/dollar.png';
+const flashIc = 'assets/images/flash.png';
+const diamondIc = 'assets/images/heart.png';

@@ -25,7 +25,7 @@ class JackpotSpinWheel extends StatelessWidget {
           children: [
             Flexible(
               child: SpinWheel(
-                asset: seventhIc,
+                assets: List.generate(7, (_) => seventhIc),
                 defaultWin: bet * jackPotMultiplier,
               ),
             ),
