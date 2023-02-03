@@ -217,9 +217,11 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
     ).then((_) async {
       _coinsLottieController.forward().then((_) => _coinsLottieController.reset());
       await Future.delayed(const Duration(seconds: _coinsDurationSeconds ~/ 2));
-      context
-          .read<UserBalanceCubit>()
-          .updateUserBalance(state.prize!.multiplier * state.currentBet);
+      if (mounted) {
+        context
+            .read<UserBalanceCubit>()
+            .updateUserBalance(state.prize!.multiplier * state.currentBet);
+      }
     });
     _playLottie(state.prize!.lottieType);
   }
