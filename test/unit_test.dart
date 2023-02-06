@@ -34,6 +34,12 @@ void userDataRepositoryTests() {
       expect(await userRepository.getBalance(), defaultBalance);
     });
 
+    test('Test getting user balance', () async {
+      when(() => userStorage.getUserBalance()).thenThrow(Exception('Something went wrong...'));
+
+      expect(() async => await userRepository.getBalance(), throwsA(isA<Exception>()));
+    });
+
     test('Test getting last spin date', () async {
       when(() => userStorage.getLastSpinDateTime()).thenAnswer((_) async => lastSpinDate);
       expect(await userRepository.getLastSpinDateTime(), lastSpinDate);
