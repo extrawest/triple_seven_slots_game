@@ -41,7 +41,10 @@ class _SpinPrizeDialogState extends State<SpinPrizeDialog> with TickerProviderSt
           const SizedBox(height: 10),
           const Text('You won!', style: TextStyles.clarendonReg22),
           const SizedBox(height: 10),
-          SvgPicture.asset(widget.asset, width: 120),
+          if (widget.asset.split('.')[1] == 'svg')
+            SvgPicture.asset(widget.asset, width: 120)
+          else
+            Image.asset(widget.asset, width: 120),
           const SizedBox(height: 10),
           Text(widget.coins.toString(), style: TextStyles.clarendonReg18),
         ],

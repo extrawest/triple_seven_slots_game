@@ -131,17 +131,6 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
     return [];
   }
 
-  int? getPrizeIndex(List<int> prizeRow) {
-    for (int i = 0; i < prizeRow.length; i++) {
-      for (int k = i + 1; k < prizeRow.length; k++) {
-        if (prizeRow[i] == prizeRow[k]) {
-          return prizeRow[k];
-        }
-      }
-    }
-    return null;
-  }
-
   void _onIncreaseBet(IncreaseBet event, Emitter<SlotMachineState> emit) {
     if (state.currentBet < 20000) {
       emit(state.copyWith(

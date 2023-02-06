@@ -42,7 +42,7 @@ class SpinWheelCubit extends Cubit<SpinWheelState> {
         _setTimer(lastSpinDate);
       }
       emit(state.copyWith(
-        isWheelAvailable: lastSpinDate != null ? _checkIf8HoursPassed(lastSpinDate) : true,
+        isWheelAvailable: lastSpinDate == null || _checkIf8HoursPassed(lastSpinDate),
       ));
     } catch (e) {
       logger.log.severe(e);

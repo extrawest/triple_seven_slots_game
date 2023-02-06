@@ -6,7 +6,7 @@ const lightRed1 = Color(0xfffe7b79);
 
 const brown1 = Color(0xff433431);
 const brown2 = Color(0xff6f4337);
-const lightOrange = Color(0xffF1EED1);
+const lightOrange = Color(0xffe3e068);
 const lightOrange1 = Color(0xffe7a727);
 const lightOrange2 = Color(0xfffee361);
 
