@@ -22,6 +22,9 @@
 
 [Triple Seven Slots Game](https://triple-seven-slots.web.app)
 
+https://user-images.githubusercontent.com/117409513/216936860-b72e2d04-4780-4d4c-bd6f-257d86f44a13.mp4
+
+
 ### Installing:
 
 **1) Clone this repo to your folder:**
