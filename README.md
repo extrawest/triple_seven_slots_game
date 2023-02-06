@@ -7,13 +7,13 @@
 
 ## PROJECT INFO
 
-- **Triple seven slots game based on Flutter v3.3.9**
+- **Triple seven slots game based on the latest version of Flutter**
 - **Game is properly working on Android, iOS and WEB**
 
 
 ## Features
 
-- Slot machine (flutter_roll_slot_machine package)
+- Slot machine ([roll_slot_machine](https://github.com/extrawest/roll_slot_machine) package)
 - Ability to make bet, user balance is locally stored
 - Spin wheel each 8 hours
 - Different lotties for prizes and balance increasing
@@ -64,18 +64,6 @@ flutter build web
 ```shell
 firebase deploy
 ```
-
-### To build release version with shaders warming up use the following:
-Android
-```shell
-flutter build apk --bundle-sksl-path flutter_01.sksl.json
-```
-iOS
-```shell
-flutter build ios --bundle-sksl-path flutter_01.sksl.json
-```
-<br>
-
 
 
 Created by Roman Ovsepian
