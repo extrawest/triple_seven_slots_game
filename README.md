@@ -30,7 +30,7 @@ https://user-images.githubusercontent.com/117409513/216936860-b72e2d04-4780-4d4c
 **1) Clone this repo to your folder:**
 
 ```
-git clone https://gitlab.extrawest.com/i-training/flutter/triple_seven_slots_game.git
+git clone https://github.com/extrawest/triple_seven_slots_game.git
 ```
 
 **2. Change current directory to the cloned folder:**
