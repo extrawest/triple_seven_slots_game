@@ -10,6 +10,9 @@ import 'package:triple_seven_slots_game/theme.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/bet_cell.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
+const decreaseBetKey = ValueKey('decrease_bet_key');
+const increaseBetKey = ValueKey('increase_bet_key');
+
 class ControlPanel extends StatelessWidget {
   const ControlPanel({Key? key}) : super(key: key);
 
@@ -20,6 +23,7 @@ class ControlPanel extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _buildChangeBetButton(
+            key: decreaseBetKey,
             angle: pi / -2,
             asset: arrowLeftIc,
             onPressed: state.isSpinning
@@ -30,6 +34,7 @@ class ControlPanel extends StatelessWidget {
           BetCell(slotMachineState: state),
           const SizedBox(width: 5),
           _buildChangeBetButton(
+            key: increaseBetKey,
             angle: pi / 2,
             asset: arrowLeftIc,
             onPressed: state.isSpinning
@@ -59,11 +64,13 @@ class ControlPanel extends StatelessWidget {
   }
 
   Widget _buildChangeBetButton({
+    Key? key,
     required double angle,
     required void Function()? onPressed,
     required String asset,
   }) {
     return Transform.rotate(
+      key: key,
       angle: angle,
       child: ZoomTapAnimation(
         onTap: onPressed,

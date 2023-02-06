@@ -5,6 +5,8 @@ import 'package:triple_seven_slots_game/assets.dart';
 import 'package:triple_seven_slots_game/bloc/slot_machine_bloc/slot_machine_bloc.dart';
 import 'package:triple_seven_slots_game/theme.dart';
 
+const betKey = ValueKey('betKey');
+
 class BetCell extends StatelessWidget {
   final SlotMachineState slotMachineState;
 
@@ -17,6 +19,7 @@ class BetCell extends StatelessWidget {
       children: [
         SvgPicture.asset(cellIc),
         Countup(
+          key: betKey,
           begin: slotMachineState.previousBet.toDouble(),
           end: slotMachineState.currentBet.toDouble(),
           style: TextStyles.clarendonReg22,
