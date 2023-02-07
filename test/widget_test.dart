@@ -18,7 +18,9 @@ void defineWidgetTests() {
 
 void slotMachineTests() {
   group('Slot Machine tests', () {
-    testWidgets('', (tester) async {
+    testWidgets(
+        'A test to check control panel is increasing bet correctly(should add 1000 by one tap)',
+        (tester) async {
       await tester.pumpWidget(MaterialApp(
         home: MultiBlocProvider(
           providers: [
