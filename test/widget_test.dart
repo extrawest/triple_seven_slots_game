@@ -5,7 +5,6 @@ import 'package:triple_seven_slots_game/bloc/slot_machine_bloc/slot_machine_bloc
 import 'package:triple_seven_slots_game/bloc/user_balance_cubit/user_balance_cubit.dart';
 import 'package:triple_seven_slots_game/database/user_data_local_storage.dart';
 import 'package:triple_seven_slots_game/repositories/user_data_repository.dart';
-import 'package:triple_seven_slots_game/screens/777_slots_screen.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/control_panel.dart';
 import 'package:triple_seven_slots_game/widgets/common/background_gradient_scaffold.dart';
 
@@ -32,7 +31,7 @@ void slotMachineTests() {
               ),
             ),
           ],
-          child: const GradientBackgroundScaffold(child: SevenSlotsScreen()),
+          child: const GradientBackgroundScaffold(child: ControlPanel()),
         ),
       ));
       await tester.pump(const Duration(seconds: 1));
