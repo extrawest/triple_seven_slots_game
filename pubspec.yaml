@@ -68,6 +68,8 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   mocktail: ^0.3.0
+  bdd_widget_test: ^1.4.3
+  build_runner: ^2.3.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
