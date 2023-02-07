@@ -40,12 +40,14 @@ class MainMenuScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GameButton(
+                  key: const ValueKey('777_slots'),
                   onPressed: () => Navigator.pushNamed(context, sevenSlotsScreenRoute),
                   asset: seventhIc,
                   title: '777 Slots',
                 ),
                 const SizedBox(width: 50),
                 GameButton(
+                  key: const ValueKey('spin_wheel'),
                   onPressed: () => Navigator.pushNamed(context, spinWheelScreenRoute),
                   asset: appleIc,
                   title: 'Spin wheel',

@@ -47,7 +47,7 @@ class SpinWheelScreen extends StatelessWidget {
                       const SizedBox(height: 40),
                       BlocBuilder<SpinWheelCubit, SpinWheelState>(
                         builder: (context, state) => state.isWheelAvailable
-                            ? const SpinButton()
+                            ? const SpinButton(key: ValueKey('spinButton'))
                             : Text(
                                 state.timeLeft,
                                 style: TextStyles.clarendonReg22,
@@ -59,6 +59,7 @@ class SpinWheelScreen extends StatelessWidget {
               ],
             ),
             Positioned(
+              key: const ValueKey('BackButton'),
               top: 10,
               left: 10,
               child: ZoomTapAnimation(
