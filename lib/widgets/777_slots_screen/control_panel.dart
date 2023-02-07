@@ -22,10 +22,10 @@ class ControlPanel extends StatelessWidget {
       builder: (context, state) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _buildChangeBetButton(
+          ChangeBetButton(
             key: decreaseBetKey,
             angle: pi / -2,
-            asset: arrowLeftIc,
+            title: '-', //arrowLeftIc,
             onPressed: state.isSpinning
                 ? null
                 : () => context.read<SlotMachineBloc>().add(const DecreaseBet()),
@@ -33,10 +33,10 @@ class ControlPanel extends StatelessWidget {
           const SizedBox(width: 5),
           BetCell(slotMachineState: state),
           const SizedBox(width: 5),
-          _buildChangeBetButton(
+          ChangeBetButton(
             key: increaseBetKey,
             angle: pi / 2,
-            asset: arrowLeftIc,
+            title: '+',
             onPressed: state.isSpinning
                 ? null
                 : () => context.read<SlotMachineBloc>().add(const IncreaseBet()),
@@ -70,11 +70,14 @@ class ControlPanel extends StatelessWidget {
     required String asset,
   }) {
     return Transform.rotate(
-      key: key,
       angle: angle,
       child: ZoomTapAnimation(
         onTap: onPressed,
-        child: SvgPicture.asset(asset, width: 60),
+        child: SvgPicture.asset(
+          asset,
+          width: 60,
+          key: key,
+        ),
       ),
     );
   }
@@ -85,5 +88,34 @@ class ControlPanel extends StatelessWidget {
       context.read<SlotMachineBloc>().add(SpinMachineEvent(bet: bet));
       context.read<UserBalanceCubit>().updateUserBalance(-bet);
     }
+  }
+}
+
+class ChangeBetButton extends StatelessWidget {
+  final double angle;
+  final Function()? onPressed;
+  final String title;
+
+  const ChangeBetButton({
+    Key? key,
+    required this.angle,
+    required this.onPressed,
+    required this.title,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Transform.rotate(
+      angle: angle,
+      child: ZoomTapAnimation(
+        onTap: onPressed,
+        child: Text(title),
+        // child: SvgPicture.asset(
+        //   asset,
+        //   width: 60,
+        //   key: key,
+        // ),
+      ),
+    );
   }
 }
