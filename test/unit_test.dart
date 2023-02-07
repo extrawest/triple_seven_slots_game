@@ -1,15 +1,10 @@
 import 'package:mocktail/mocktail.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 import 'package:triple_seven_slots_game/database/user_data_local_storage.dart';
 import 'package:triple_seven_slots_game/repositories/user_data_repository.dart';
 import 'package:triple_seven_slots_game/utils/extensions.dart';
 
 import 'mocks.dart';
-
-const defaultBalance = 100000;
-
-final lastSpinDate = DateTime(2023, 1, 1);
 
 void main() {
   defineUnitTests();
@@ -60,8 +55,7 @@ void userDataRepositoryTests() {
 }
 
 void userDataLocalStorageTest() {
-  SharedPreferences.setMockInitialValues(
-      {balanceKey: defaultBalance, lastSpinKey: lastSpinDate.toString()});
+  setSharedPreferencesMockValues();
   final UserDataLocalStorageImpl userDataLocalStorage = UserDataLocalStorageImpl();
 
   group('User local data storage tests', () {
