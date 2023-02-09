@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:triple_seven_slots_game/consts.dart';
+import 'package:triple_seven_slots_game/main.dart';
 import 'package:triple_seven_slots_game/models/prize.dart';
 import 'package:triple_seven_slots_game/models/slot_machine_status.dart';
 import 'package:triple_seven_slots_game/repositories/slot_machine_repository.dart';
@@ -20,7 +21,7 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
 
   void _onSpinMachineEvent(SpinMachineEvent event, Emitter<SlotMachineState> emit) {
     emit(state.copyWith(slotMachineStatus: SlotMachineStatus.loading));
-    final prizesIndexes = generatePrizes();
+    final prizesIndexes = isTesting ? generateTestingPrize() : generatePrizes();
 
     final List<int> prize;
     final prizeRowIndex = _checkRows(prizesIndexes);
@@ -129,6 +130,13 @@ class SlotMachineBloc extends Bloc<SlotMachineEvent, SlotMachineState> {
       return [1, jackpotIndex];
     }
     return [];
+  }
+
+  List<List<int>> generateTestingPrize() {
+    return List<List<int>>.generate(
+      numberOfSlots,
+      (_) => List<int>.generate(numberOfItemsInSlot, (_) => mockSlotMachinePrizeIndex),
+    );
   }
 
   void _onIncreaseBet(IncreaseBet event, Emitter<SlotMachineState> emit) {
