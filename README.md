@@ -140,18 +140,6 @@ flutter build web
 firebase deploy
 ```
 
-### To build release version with shaders warming up use the following:
-Android
-```shell
-flutter build apk --bundle-sksl-path flutter_01.sksl.json
-```
-iOS
-```shell
-flutter build ios --bundle-sksl-path flutter_01.sksl.json
-```
-<br>
-
-
 
 Created by Roman Ovsepian
 
