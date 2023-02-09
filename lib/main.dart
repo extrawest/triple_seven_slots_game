@@ -4,7 +4,7 @@ import 'package:triple_seven_slots_game/app.dart';
 import 'package:triple_seven_slots_game/utils/logger.dart';
 
 const isTestingEnvKey = 'IS_TESTING';
-const mockSlotMachineValuesEnvKey = 'MOCK_SLOT_MACHINE_VALUES';
+const mockSlotMachineValuesEnvKey = 'MOCK_SLOT_MACHINE_PRIZE_INDEX';
 
 bool isTesting = false;
 int mockSlotMachinePrizeIndex = 0;
