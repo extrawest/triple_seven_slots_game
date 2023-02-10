@@ -7,6 +7,7 @@ import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 class CommonButton extends StatelessWidget {
   final String title;
   final VoidCallback? onTap;
+
   const CommonButton({required this.onTap, required this.title, Key? key}) : super(key: key);
 
   @override
@@ -18,11 +19,15 @@ class CommonButton extends StatelessWidget {
           SvgPicture.asset(
             playButton,
             width: 120,
+            height: 80,
           ),
           Positioned(
             top: 15,
             left: 35,
-            child: Text(title, style: TextStyles.clarendonReg22),
+            child: Text(
+              title,
+              style: TextStyles.clarendonReg22,
+            ),
           ),
         ],
       ),

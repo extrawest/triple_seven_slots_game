@@ -3,11 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:triple_seven_slots_game/assets.dart';
 import 'package:triple_seven_slots_game/bloc/slot_machine_bloc/slot_machine_bloc.dart';
 import 'package:triple_seven_slots_game/bloc/user_balance_cubit/user_balance_cubit.dart';
-import 'package:triple_seven_slots_game/theme.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/bet_cell.dart';
+import 'package:triple_seven_slots_game/widgets/common/common_spin_button.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 const decreaseBetKey = ValueKey('decrease_bet_key');
@@ -42,21 +41,9 @@ class ControlPanel extends StatelessWidget {
                 : () => context.read<SlotMachineBloc>().add(const IncreaseBet()),
           ),
           const SizedBox(width: 50),
-          ZoomTapAnimation(
+          CommonButton(
             onTap: () => state.isSpinning ? null : _startSlotMachine(context),
-            child: Stack(
-              children: [
-                SvgPicture.asset(
-                  playButton,
-                  width: 120,
-                ),
-                const Positioned(
-                  top: 15,
-                  left: 35,
-                  child: Text('Spin', style: TextStyles.clarendonReg22),
-                ),
-              ],
-            ),
+            title: 'Spin',
           ),
         ],
       ),
