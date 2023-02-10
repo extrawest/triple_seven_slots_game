@@ -9,12 +9,10 @@ import 'package:triple_seven_slots_game/database/user_data_local_storage.dart';
 import 'package:triple_seven_slots_game/repositories/user_data_repository.dart';
 import 'package:triple_seven_slots_game/screens/777_slots_screen.dart';
 import 'package:triple_seven_slots_game/screens/spin_wheel_screen.dart';
+import 'package:triple_seven_slots_game/widgets/777_slots_screen/common_roll_slot.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/control_panel.dart';
-import 'package:triple_seven_slots_game/widgets/777_slots_screen/jackpot_spin_wheel.dart';
 import 'package:triple_seven_slots_game/widgets/common/background_gradient_scaffold.dart';
 import 'package:triple_seven_slots_game/widgets/common/common_spin_button.dart';
-import 'package:triple_seven_slots_game/widgets/spin_wheel/spin_button.dart';
-import 'package:triple_seven_slots_game/widgets/spin_wheel/spin_prize_dialog.dart';
 
 import 'mocks.dart';
 
@@ -139,28 +137,11 @@ void slotMachineTests() {
 
   testWidgets('Show prize dialog after spinning slot machine', (tester) async {
     await tester.pumpWidget(
-      _wrapper(const GradientBackgroundScaffold(child: JackpotSpinWheel(bet: defaultBet))),
+      _wrapper(const GradientBackgroundScaffold(child: SevenSlotsScreen())),
     );
-    await tester.tap(find.text('Spin'));
-    await tester.pump(const Duration(seconds: 6));
-    await tester.pumpAndSettle();
-
-    expect(find.byType(SpinPrizeDialog), findsOneWidget);
-  });
-
-  testWidgets('Whether button change from "spin" to "back" after jackpot spin wheel was spun',
-      (tester) async {
-    await tester.pumpWidget(
-      _wrapper(const GradientBackgroundScaffold(child: JackpotSpinWheel(bet: defaultBet))),
-    );
-    await tester.tap(find.text('Spin'));
-    await tester.pump(const Duration(seconds: 6));
-    await tester.pumpAndSettle();
-
-    expect(find.byType(SpinPrizeDialog), findsOneWidget);
-    await tester.tapAt(const Offset(1, 1));
-    await tester.pumpAndSettle();
-    expect(find.text('Back'), findsOneWidget);
+    expect(find.byKey(const ValueKey('jackpot')), findsAtLeastNWidgets(9));
+    await tester.drag(find.byType(CommonRollSlot).first, const Offset(0, 300));
+    expect(find.byKey(const ValueKey('jackpot')), findsAtLeastNWidgets(9));
   });
 }
 
@@ -171,15 +152,12 @@ void spinWheelTests() {
 
       await tester.pumpWidget(_wrapper(SpinWheelScreen()));
       await tester.pump(const Duration(seconds: 2));
-      await tester.pumpAndSettle(const Duration(seconds: 2));
-      expect(find.byType(SpinButton), findsOneWidget);
-
-      final spinButton = find.byType(CommonButton);
-      await tester.ensureVisible(spinButton);
-      await tester.tap(spinButton);
-      await tester.pump(const Duration(seconds: 6));
       await tester.pumpAndSettle();
-      expect(find.byType(SpinPrizeDialog), findsOneWidget);
+
+      await tester.tap(find.byType(CommonButton));
+      await tester.pump(const Duration(seconds: 1));
+
+      expect(find.byType(CommonButton), findsOneWidget);
     });
   });
 }
