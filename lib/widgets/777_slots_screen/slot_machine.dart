@@ -255,7 +255,7 @@ class _SlotMachineState extends State<SlotMachine> with TickerProviderStateMixin
   }
 
   final List<Widget> prizes = <Widget>[
-    Center(child: SvgPicture.asset(seventhIc)),
+    Center(key: const ValueKey('jackpot'), child: SvgPicture.asset(seventhIc)),
     Center(child: SvgPicture.asset(cherryIc)),
     Center(child: SvgPicture.asset(appleIc)),
     Center(child: SvgPicture.asset(crownIc)),

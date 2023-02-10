@@ -14,7 +14,7 @@ class SpinWheelState extends Equatable {
     this.currentPrizeMultiplier,
     this.isSpinning = false,
     this.rotationCount = 10,
-    this.isWheelAvailable = false,
+    this.isWheelAvailable = true,
     this.timeLeft = '00:00:00',
     this.isJackpotWheelSpinComplete = false,
   });
