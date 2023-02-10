@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:triple_seven_slots_game/assets.dart';
 import 'package:triple_seven_slots_game/bloc/slot_machine_bloc/slot_machine_bloc.dart';
 import 'package:triple_seven_slots_game/bloc/user_balance_cubit/user_balance_cubit.dart';
 import 'package:triple_seven_slots_game/widgets/777_slots_screen/bet_cell.dart';
@@ -24,7 +25,7 @@ class ControlPanel extends StatelessWidget {
           ChangeBetButton(
             key: decreaseBetKey,
             angle: pi / -2,
-            title: '-', //arrowLeftIc,
+            asset: arrowLeftIc, //arrowLeftIc,
             onPressed: state.isSpinning
                 ? null
                 : () => context.read<SlotMachineBloc>().add(const DecreaseBet()),
@@ -35,7 +36,7 @@ class ControlPanel extends StatelessWidget {
           ChangeBetButton(
             key: increaseBetKey,
             angle: pi / 2,
-            title: '+',
+            asset: arrowLeftIc,
             onPressed: state.isSpinning
                 ? null
                 : () => context.read<SlotMachineBloc>().add(const IncreaseBet()),
@@ -81,13 +82,13 @@ class ControlPanel extends StatelessWidget {
 class ChangeBetButton extends StatelessWidget {
   final double angle;
   final Function()? onPressed;
-  final String title;
+  final String asset;
 
   const ChangeBetButton({
     Key? key,
     required this.angle,
     required this.onPressed,
-    required this.title,
+    required this.asset,
   }) : super(key: key);
 
   @override
@@ -96,12 +97,11 @@ class ChangeBetButton extends StatelessWidget {
       angle: angle,
       child: ZoomTapAnimation(
         onTap: onPressed,
-        child: Text(title),
-        // child: SvgPicture.asset(
-        //   asset,
-        //   width: 60,
-        //   key: key,
-        // ),
+        child: SvgPicture.asset(
+          asset,
+          width: 60,
+          height: 60,
+        ),
       ),
     );
   }

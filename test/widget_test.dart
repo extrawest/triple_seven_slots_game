@@ -36,14 +36,13 @@ void slotMachineTests() {
       await tester.pumpAndSettle();
       expect(find.text('5000'), findsOneWidget);
 
-      final increaseButton = find.text('+');
-      await tester.ensureVisible(increaseButton);
+      final increaseButton = find.byKey(increaseBetKey);
       await tester.tap(increaseButton);
       await tester.pump(const Duration(seconds: 2));
       await tester.pumpAndSettle();
       expect(find.text('6000'), findsOneWidget);
 
-      final decreaseButton = find.text('-');
+      final decreaseButton = find.byKey(decreaseBetKey);
       await tester.ensureVisible(decreaseButton);
       await tester.tap(decreaseButton);
       await tester.pump(const Duration(seconds: 2));
@@ -61,7 +60,7 @@ void slotMachineTests() {
       int currentBet = defaultBet;
       expect(find.text(defaultBet.toString()), findsOneWidget);
 
-      final increaseButton = find.text('+');
+      final increaseButton = find.byKey(increaseBetKey);
       while (currentBet < maxBet) {
         currentBet += differenceBet;
         await tester.tap(increaseButton);
@@ -86,7 +85,7 @@ void slotMachineTests() {
       int currentBet = defaultBet;
       expect(find.text(defaultBet.toString()), findsOneWidget);
 
-      final decreaseButton = find.text('-');
+      final decreaseButton = find.byKey(decreaseBetKey);
       while (currentBet > minBet) {
         currentBet -= differenceBet;
         await tester.tap(decreaseButton);
@@ -128,10 +127,10 @@ void slotMachineTests() {
     await tester.pump();
     expect(find.text(defaultBet.toString()), findsOneWidget);
 
-    await tester.tap(find.text('+'));
+    await tester.tap(find.byKey(increaseBetKey));
     expect(find.text(defaultBet.toString()), findsOneWidget);
 
-    await tester.tap(find.text('-'));
+    await tester.tap(find.byKey(decreaseBetKey));
     expect(find.text(defaultBet.toString()), findsOneWidget);
   });
 
