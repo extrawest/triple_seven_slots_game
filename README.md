@@ -4,6 +4,7 @@
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)]()
 ![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)
 ![GitHub release](https://img.shields.io/badge/release-v1.0.0-blue)
+![Code coverage](https://img.shields.io/badge/Code%20coverage-64%25-yellowgreen)
 
 ## PROJECT INFO
 
