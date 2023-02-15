@@ -118,9 +118,6 @@ Check You are done html files at `coverage/html`.
 On android studio, select index.html then CTRL+SHIFT+C to copy the file path.
 
 Open Chrome and on the url bar add `file:///+CTRL+V`. Tap enter. You are done.
-
-### Source:
-https://stackoverflow.com/questions/62184806/how-to-view-code-coverage-as-html-in-windows
 <br>
 
 
@@ -147,6 +144,6 @@ firebase deploy
 
 Created by Roman Ovsepian
 
-[Extrawest.com](https://www.extrawest.com), 2022
+[Extrawest.com](https://www.extrawest.com), 2023
 
 ---
